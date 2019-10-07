@@ -1,0 +1,28 @@
+{
+  "name": "altrue-poc",
+  "version": "1.0.0",
+  "description": "Altrue POC",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basedantoni/Altrue-POC.git"
+  },
+  "author": "Anthony Mercado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/basedantoni/Altrue-POC/issues"
+  },
+  "homepage": "https://github.com/basedantoni/Altrue-POC#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
+}
