@@ -1,34 +1,28 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-const users = require("./routes/api/users")
+const users = require('./routes/api/users');
 
 const app = express();
 
-// DB Config
-const db = require("./config/keys").mongoURI;
-
 // Bodyparser middleware
-app.use(
-    bodyParser.urlencoded({
-      extended: false
-    })
-  );
-  app.use(bodyParser.json());
+app.use(bodyParser.json());
 
-// Connect to MongoDB
-mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log("MongoDB successfully connected"))
+// DB Config
+const db = require('./config/keys').mongoURI;
+
+// Connect to Mongo
+mongoose.connect(db, { 
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  })
+  .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-// Use routes
-app.use('api/users', users);
+// Use Routes
+app.use('/api/users', users);
 
-const port = process.env.PORT || 5000; // process.env.port will be DO
+const port = 5000;
 
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+app.listen(port, () => console.log(`Server started on port ${port}`));
