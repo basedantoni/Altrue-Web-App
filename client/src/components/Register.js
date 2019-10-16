@@ -6,7 +6,11 @@ class Register extends Component {
     super(props)
 
     this.state = {
+      name: "",
       username: "",
+      email: "",
+      password: "",
+      password2: ""
     }
   }
 
@@ -30,10 +34,18 @@ class Register extends Component {
   }
 
   render() {
-    const { username } = this.state
+    const { name, username, email, password, password2 } = this.state
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+        <div>
+            <label>Name: </label>
+            <input 
+            type="text" 
+            value={name} 
+            name="name"
+            onChange={this.handleInputs}/>
+          </div>
           <div>
             <label>Username: </label>
             <input 
@@ -41,11 +53,32 @@ class Register extends Component {
             value={username} 
             name="username"
             onChange={this.handleInputs}/>
-            <button type="submit">Submit</button>
           </div>
-        </form>
-        <form onSubmit={this.handleDelete}>
-          <button type="submit">Delete</button>
+          <div>
+            <label>Email: </label>
+            <input 
+            type="email" 
+            value={email} 
+            name="email"
+            onChange={this.handleInputs}/>
+          </div>
+          <div>
+            <label>Password: </label>
+            <input 
+            type="password" 
+            value={password} 
+            name="password"
+            onChange={this.handleInputs}/>
+          </div>
+          <div>
+            <label>Confirm Password: </label>
+            <input 
+            type="password" 
+            value={password2} 
+            name="password2"
+            onChange={this.handleInputs}/>
+          </div>
+          <button type="submit">Submit</button>
         </form>
       </div>
     )
