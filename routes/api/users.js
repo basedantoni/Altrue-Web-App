@@ -15,6 +15,7 @@ const User = require('../../models/User');
 // @desc Register user
 // @access Public
 router.post('/register', (req, res) => {
+
   // Form validation
   const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -23,6 +24,7 @@ router.post('/register', (req, res) => {
     return res.status(400).json(errors);
   }
 
+
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       return res.status(400).json({ email: 'Email already exists'});
@@ -30,10 +32,79 @@ router.post('/register', (req, res) => {
     else {
       const newUser = new User({
         name: req.body.name,
+        username: req.body.username,
         email: req.body.email,
         password: req.body.password
       });
+
+      // Hash Password
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+        newUser.password = hash;
+        newUser
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+        });
+      });
     }
+  });
+});
+
+// @route POST api/users/login
+// @desc Login user and retrun JWT token
+// @access Public
+router.post('/login', (req,res) => {
+  // Form Validation
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by email
+  User.findOne({ email }).then(user => {
+    // Checks if user exists
+    if (!user) {
+      return res.status(400).json({ emailnotfound: 'Email not found'});
+    }
+
+    // Checks Password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // User method
+        // Creat JWT Payload
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
+
+        // Sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 31556926 // 1 year in seconds
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: 'Bearer ' + token
+            });
+          }
+        );
+      }
+      else {
+        return res
+          .status(400)
+          .json({ passwordinccorect: 'Password incorrect' });
+      }
+    });
   });
 });
 
@@ -50,6 +121,7 @@ router.get('/', (req, res) => {
 // @desc Create A User
 // @access Public
 router.post('/', (req, res) => {
+  console.log(req.body);
   const newUser = new User({
     name: req.body.name,
     username: req.body.username,
@@ -57,7 +129,10 @@ router.post('/', (req, res) => {
     password: req.body.password
   });
 
-  newUser.save().then(users => res.json(users));
+  newUser
+    .save()
+    .then(users => res.json(users))
+    .catch(err => { res.status(400).json({ success: false })});
 });
 
 // @route DELETE api/users/:id
