@@ -10,6 +10,7 @@ const validateLoginInput = require('../../validation/login');
 
 // User Model
 const User = require('../../models/User');
+const Poc = require('../../models/Poc');
 
 // @route POST api/users/register
 // @desc Register user
@@ -117,19 +118,25 @@ router.get('/', (req, res) => {
     .then(users => res.json(users));
 });
 
+// @route GET api/users
+// @desc Get All POC
+// @access Public
+router.get('/poc', (req, res) => {
+  Poc.find()
+    .sort({date: -1})
+    .then(pocs => res.json(pocs));
+});
+
 // @route POST api/users
 // @desc Create A User
 // @access Public
 router.post('/', (req, res) => {
   console.log(req.body);
-  const newUser = new User({
-    name: req.body.name,
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
+  const newPoc = new Poc({
+    username: req.body.username
   });
 
-  newUser
+  newPoc
     .save()
     .then(users => res.json(users))
     .catch(err => { res.status(400).json({ success: false })});
