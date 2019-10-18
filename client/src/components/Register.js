@@ -14,17 +14,17 @@ class Register extends Component {
     }
   }
 
-  handleInputs = (e) => {
+  onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
-  handleSubmit = (e) => {
-    //e.preventDefault();
+  onSubmit = (e) => {
+    e.preventDefault();
     console.log(this.state)
 
-    axios.post("http://localhost:5000/api/users/", this.state)
+    axios.post("http://localhost:5000/api/users/register", this.state)
       .then(response => {
         console.log(response)
       })
@@ -37,14 +37,14 @@ class Register extends Component {
     const { name, username, email, password, password2 } = this.state
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.onSubmit}>
         <div>
             <label>Name: </label>
             <input 
             type="text" 
             value={name} 
             name="name"
-            onChange={this.handleInputs}/>
+            onChange={this.onChange}/>
           </div>
           <div>
             <label>Username: </label>
@@ -52,7 +52,7 @@ class Register extends Component {
             type="text" 
             value={username} 
             name="username"
-            onChange={this.handleInputs}/>
+            onChange={this.onChange}/>
           </div>
           <div>
             <label>Email: </label>
@@ -60,7 +60,7 @@ class Register extends Component {
             type="email" 
             value={email} 
             name="email"
-            onChange={this.handleInputs}/>
+            onChange={this.onChange}/>
           </div>
           <div>
             <label>Password: </label>
@@ -68,7 +68,7 @@ class Register extends Component {
             type="password" 
             value={password} 
             name="password"
-            onChange={this.handleInputs}/>
+            onChange={this.onChange}/>
           </div>
           <div>
             <label>Confirm Password: </label>
@@ -76,7 +76,7 @@ class Register extends Component {
             type="password" 
             value={password2} 
             name="password2"
-            onChange={this.handleInputs}/>
+            onChange={this.onChange}/>
           </div>
           <button type="submit">Register</button>
         </form>

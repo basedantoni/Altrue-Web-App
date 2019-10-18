@@ -54,7 +54,7 @@ router.post('/register', (req, res) => {
 });
 
 // @route POST api/users/login
-// @desc Login user and retrun JWT token
+// @desc Login user and return JWT token
 // @access Public
 router.post('/login', (req,res) => {
   // Form Validation
@@ -132,11 +132,16 @@ router.get('/poc', (req, res) => {
 // @access Public
 router.post('/', (req, res) => {
   console.log(req.body);
-  const newPoc = new Poc({
-    username: req.body.username
+  const newUser = new User({
+    name: req.body.name,
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    password2: req.body.password2
+
   });
 
-  newPoc
+  newUser
     .save()
     .then(users => res.json(users))
     .catch(err => { res.status(400).json({ success: false })});

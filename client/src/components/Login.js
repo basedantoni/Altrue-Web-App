@@ -11,25 +11,43 @@ class Login extends Component {
     }
   }
 
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+  onSubmit = e => {
+    e.preventDefault();
+
+    const userData = {
+      username: this.state.username,
+      password: this.state.password
+    }
+
+    console.log(userData);
+  }
+
   render() {
     const { username, password } = this.state;
     return (
       <div>
         <h1>Login</h1>
-        <form>
+        <form onSubmit={this.onSubmit}>
           <div>
             <label>Username:</label>
             <input
             type="text"
             value={username}
-            name="username"/>
+            name="username"
+            onChange={this.onChange}/>
           </div>
           <div>
             <label>Password:</label>
             <input
             type="password"
             value={password}
-            name="password"/>
+            name="password"
+            onChange={this.onChange}/>
           </div>
           <button type="submit">Login</button>
         </form>
