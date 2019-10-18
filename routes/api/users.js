@@ -12,6 +12,7 @@ const validateLoginInput = require('../../validation/login');
 const User = require('../../models/User');
 const Poc = require('../../models/Poc');
 
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -61,15 +62,15 @@ router.post('/login', (req,res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
 
-  const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
-  // Find user by email
-  User.findOne({ email }).then(user => {
+  // Find user by username
+  User.findOne({ username }).then(user => {
     // Checks if user exists
     if (!user) {
       return res.status(400).json({ emailnotfound: 'Email not found'});

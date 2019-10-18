@@ -1,5 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+// import PropTypes from "prop-types";
+// import { loginUser } from "../actions/authActions";
+// import { connect } from "react-redux";
+// import classNames from "classnames";
 
 class Login extends Component {
   constructor(props) {
@@ -8,6 +13,18 @@ class Login extends Component {
     this.state = {
       username: "",
       password: ""
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard"); //push user to dashboard when logging in
+    }
+
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
     }
   }
 
@@ -24,7 +41,11 @@ class Login extends Component {
       password: this.state.password
     }
 
-    console.log(userData);
+    axios
+      .post("http://localhost:5000/api/users/login", userData)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+
   }
 
   render() {
@@ -32,6 +53,9 @@ class Login extends Component {
     return (
       <div>
         <h1>Login</h1>
+        <Link 
+        to="/">Home
+        </Link>
         <form onSubmit={this.onSubmit}>
           <div>
             <label>Username:</label>

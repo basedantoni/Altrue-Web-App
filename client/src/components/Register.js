@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { registerUser } from "../actions/authActions";
 import axios from "axios";
-import { connect } from "react-redux";
-import classNames from "classnames";
+// import PropTypes from "prop-types";
+// import { registerUser } from "../actions/authActions";
+// import { connect } from "react-redux";
+// import classNames from "classnames";
 
 class Register extends Component {
   constructor(props) {
@@ -19,6 +19,7 @@ class Register extends Component {
     }
   }
 
+
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -27,21 +28,28 @@ class Register extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state)
 
-    axios.post("http://localhost:5000/api/users/register", this.state)
-      .then(response => {
-        console.log(response)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    const newUser = {
+      name: this.state.name,
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2
+    }
+
+    axios
+    .post("http://localhost:5000/api/users/register", newUser)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
   }
 
   render() {
     const { name, username, email, password, password2 } = this.state
     return (
       <div>
+        <Link 
+        to="/">Home
+        </Link>
         <form onSubmit={this.onSubmit}>
         <div>
             <label>Name: </label>
@@ -90,12 +98,4 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(withRouter(Register));
+export default Register

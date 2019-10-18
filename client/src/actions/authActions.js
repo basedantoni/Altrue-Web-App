@@ -44,6 +44,7 @@ export const loginUser = userData => dispatch => {
         payload: err.response.data
       })
     );
+    console.log("SUCCESS");
 };
 
 // Set logged in user
