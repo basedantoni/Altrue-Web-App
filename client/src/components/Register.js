@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import axios from "axios";
 // import PropTypes from "prop-types";
 // import { registerUser } from "../actions/authActions";
@@ -15,7 +15,8 @@ class Register extends Component {
       username: "",
       email: "",
       password: "",
-      password2: ""
+      password2: "",
+      toDashboard: false
     }
   }
 
@@ -40,11 +41,19 @@ class Register extends Component {
     axios
     .post("http://localhost:5000/api/users/register", newUser)
     .then(res => console.log(res))
+    .then(() => this.setState(() => ({
+      toDashboard: true
+    })))
     .catch(err => console.log(err));
   }
 
   render() {
-    const { name, username, email, password, password2 } = this.state
+    const { name, username, email, password, password2, toDashboard } = this.state
+
+    if (toDashboard === true) {
+      return <Redirect to='/dashboard' />
+    }
+
     return (
       <div>
         <Link 

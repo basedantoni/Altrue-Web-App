@@ -6,11 +6,11 @@ class LandingPage extends Component {
 
   render() {
     return (
-      <div style={{height:"75vh"}} className="cotainer valign-wrapper">
+      <div style={{height:"75vh"}} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              Altrue a hub for volunteer <b>work</b> and <b>chariety</b>
+              Altrue a hub for volunteer <b>work</b> and <b>charity</b>
             </h4>
             <p className="flow-text grey-text text-darken-1">
               Donate your time or money to the non-profit organization of your choice.
