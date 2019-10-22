@@ -1,0 +1,104 @@
+const express = require('express');
+const plaid = require('plaid');
+const router = express.Router();
+const passport = require('passport');
+const moment = require('moment');
+const mongoose = require('mongoose');
+
+// Load Account and User Models
+const Account = require('../../models/Account');
+const User = require('../../models/User');
+
+const PLAID_CLIENT_ID = '5d684cdc8fd6470012c1d3be';
+const PLAID_SECRET = '5eb9a4bc21e77f85b48b1283742dd8';
+const PLAID_PUBLIC_KEY = '149919998b1615c24386e3ad303fbc';
+
+const client = new plaid.Client(
+  PLAID_CLIENT_ID,
+  PLAID_SECRET,
+  PLAID_PUBLIC_KEY,
+  plaid.environments.sandbox,
+  { version: '2019-05-29' }
+)
+
+var PUBLIC_TOKEN = null;
+var ACCESS_TOKEN = null;
+var ITEM_ID = null;
+
+// Routes
+//@route POST api/plaid/accounts/add
+//@desc Trades public token for access token and stores creds into database
+// @access Private
+router.post(
+  '/accounts/add',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    PUBLIC_TOKEN = req.body.public_token;
+
+    const userId = req.user.id;
+
+    const bank = req.metadata.bank;
+    const { name, bank_id } = bank;
+
+    if(PUBLIC_TOKEN) {
+      client
+        .exchangePublicToken(PUBLIC_TOKEN)
+        .then(exchangeResponse => {
+          ACCESS_TOKEN = exchangeResponse.access_token;
+          ITEM_ID = exchangeResponse.item_id;
+
+          // Check if account already exists
+          Account.findOne({
+            userId: req.user.id,
+            bankId: bank_id
+          })
+            .then(account => {
+              if(account) {
+                console.log('Account already exists');
+              } 
+              else {
+                const newAccount = new Account({
+                  userId: userId,
+                  accessToken: ACCESS_TOKEN,
+                  itemId: ITEM_ID,
+                  bankId: bank_id,
+                  bankName: name
+                });
+          newAccount.save().then(account => res.json(account));
+              }
+            })
+            .catch(err => console.log('Mongo Error: ' + err));
+        })
+        .catch(err => console.log('Plaid Error: ' + err));
+    }
+  }
+);
+
+// @route DELETE api/plaid/accounts/:id
+// @desc Delete account with given id
+// @access Private
+router.delete(
+  "/accounts/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Account.findById(req.params.id).then(account => {
+      // Delete account
+      account.remove().then(() => res.json({ success: true }));
+    });
+  }
+);
+
+// @route GET api/plaid/accounts
+// @desc Get all accounts linked with plaid for a specific user
+// @access Private
+router.get(
+  "/accounts",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Account.find({ userId: req.user.id })
+      .then(accounts => res.json(accounts))
+      .catch(err => console.log(err));
+  }
+);
+
+module.exports = router;

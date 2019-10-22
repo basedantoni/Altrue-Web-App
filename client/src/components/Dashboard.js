@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 class Dashboard extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       username: "",
-      jwtoken: ""
+      jwtoken: "",
     }
   }
 
@@ -16,6 +16,7 @@ class Dashboard extends Component {
 
   render() {
     //const { user } = this.props.auth;
+
     return (
       <div>
         <button onClick={this.onLogoutClick}>Logout</button>

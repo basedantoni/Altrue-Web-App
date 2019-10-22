@@ -16,15 +16,16 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
-      toDashboard: false
-    }
+      toDashboard: false,
+      errors: {}
+    };
   }
 
 
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
-    })
+    });
   }
 
   onSubmit = (e) => {
@@ -48,7 +49,7 @@ class Register extends Component {
   }
 
   render() {
-    const { name, username, email, password, password2, toDashboard } = this.state
+    const { name, username, email, password, password2, toDashboard, errors } = this.state
 
     if (toDashboard === true) {
       return <Redirect to='/dashboard' />
@@ -59,46 +60,51 @@ class Register extends Component {
         <Link 
         to="/">Home
         </Link>
-        <form onSubmit={this.onSubmit}>
+        <form noValidate onSubmit={this.onSubmit}>
         <div>
             <label>Name: </label>
             <input 
+            id="name"
             type="text" 
             value={name} 
-            name="name"
-            onChange={this.onChange}/>
+            onChange={this.onChange}
+            errors={errors.name}/>
           </div>
           <div>
             <label>Username: </label>
             <input 
+            id="username"
             type="text" 
             value={username} 
-            name="username"
-            onChange={this.onChange}/>
+            onChange={this.onChange}
+            errors={errors.username}/>
           </div>
           <div>
             <label>Email: </label>
-            <input 
+            <input
+            id="email" 
             type="email" 
-            value={email} 
-            name="email"
-            onChange={this.onChange}/>
+            value={email}
+            onChange={this.onChange}
+            errors={errors.email}/>
           </div>
           <div>
             <label>Password: </label>
             <input 
+            id="password"
             type="password" 
             value={password} 
-            name="password"
-            onChange={this.onChange}/>
+            onChange={this.onChange}
+            errors={errors.password}/>
           </div>
           <div>
             <label>Confirm Password: </label>
             <input 
+            id="password2"
             type="password" 
             value={password2} 
-            name="password2"
-            onChange={this.onChange}/>
+            onChange={this.onChange}
+            errors={errors.password2}/>
           </div>
           <button type="submit">Register</button>
         </form>

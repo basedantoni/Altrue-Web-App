@@ -12,8 +12,9 @@ class Login extends Component {
 
     this.state = {
       username: "",
-      password: ""
-    }
+      password: "",
+      errors: {}
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,29 +50,31 @@ class Login extends Component {
   }
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, errors } = this.state;
     return (
       <div>
         <h1>Login</h1>
         <Link 
         to="/">Home
         </Link>
-        <form onSubmit={this.onSubmit}>
+        <form noValidate onSubmit={this.onSubmit}>
           <div>
             <label>Username:</label>
             <input
+            id="username"
             type="text"
             value={username}
-            name="username"
-            onChange={this.onChange}/>
+            onChange={this.onChange}
+            error = {errors.username}/>
           </div>
           <div>
             <label>Password:</label>
             <input
+            id="password"
             type="password"
             value={password}
-            name="password"
-            onChange={this.onChange}/>
+            onChange={this.onChange}
+            error = {errors.password}/>
           </div>
           <button type="submit">Login</button>
         </form>
