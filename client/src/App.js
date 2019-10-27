@@ -12,7 +12,7 @@ import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import LandingPage from "./components/LandingPage";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 import Post from "./components/Post";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 
