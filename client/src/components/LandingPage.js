@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Navbar, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
 class LandingPage extends Component {

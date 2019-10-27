@@ -28,7 +28,7 @@ var ITEM_ID = null;
 // Routes
 //@route POST api/plaid/accounts/add
 //@desc Trades public token for access token and stores creds into database
-// @access Private
+//@access Private
 router.post(
   '/accounts/add',
   passport.authenticate('jwt', { session: false }),
@@ -98,6 +98,40 @@ router.get(
     Account.find({ userId: req.user.id })
       .then(accounts => res.json(accounts))
       .catch(err => console.log(err));
+  }
+);
+
+// @route POST api/plaid/accounts/transactions
+// @desc Fetch transactions from past 30 days from all linked accounts
+// @access Private
+router.post(
+  "/accounts/transactions",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const now = moment();
+    const today = now.format("YYYY-MM-DD");
+    const thirtyDaysAgo = now.subtract(30, "days").format("YYYY-MM-DD"); // Change this if you want more transactions
+  let transactions = [];
+  const accounts = req.body;
+  if (accounts) {
+      accounts.forEach(function(account) {
+        ACCESS_TOKEN = account.accessToken;
+        const bankName = account.bankName;
+        client
+          .getTransactions(ACCESS_TOKEN, thirtyDaysAgo, today)
+          .then(response => {
+            transactions.push({
+              accountName: bankName,
+              transactions: response.transactions
+            });
+            // Don't send back response till all transactions have been added
+            if (transactions.length === accounts.length) {
+              res.json(transactions);
+            }
+          })
+          .catch(err => console.log(err));
+      });
+    }
   }
 );
 

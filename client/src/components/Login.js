@@ -1,23 +1,28 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-// import PropTypes from "prop-types";
-// import { loginUser } from "../actions/authActions";
-// import { connect } from "react-redux";
-// import classNames from "classnames";
+import PropTypes from "prop-types";
+import { loginUser } from "../actions/authActions";
+import { connect } from "react-redux";
 
 class Login extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      username: "",
+      email: "",
       password: "",
       errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    // If logged in and user navigates to Login page, should redirect them to dashboard
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,19 +44,15 @@ class Login extends Component {
     e.preventDefault();
 
     const userData = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     }
 
-    axios
-      .post("http://localhost:5000/api/users/login", userData)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
-
+    this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   }
 
   render() {
-    const { username, password, errors } = this.state;
+    const { email, password, errors } = this.state;
     return (
       <div>
         <h1>Login</h1>
@@ -60,22 +61,22 @@ class Login extends Component {
         </Link>
         <form noValidate onSubmit={this.onSubmit}>
           <div>
-            <label>Username:</label>
+            <label>Email: </label>
             <input
-            id="username"
+            id="email"
             type="text"
-            value={username}
+            value={email}
             onChange={this.onChange}
-            error = {errors.username}/>
+            error={errors.email}/>
           </div>
           <div>
-            <label>Password:</label>
+            <label>Password: </label>
             <input
             id="password"
             type="password"
             value={password}
             onChange={this.onChange}
-            error = {errors.password}/>
+            error={errors.password}/>
           </div>
           <button type="submit">Login</button>
         </form>
@@ -84,4 +85,15 @@ class Login extends Component {
   }
 }
 
-export default Login
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  //errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps, { loginUser })(Login);

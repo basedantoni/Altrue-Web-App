@@ -6,6 +6,7 @@ const path = require('path');
 
 const users = require('./routes/api/users');
 const plaid = require('./routes/api/plaid');
+const manager = require('./routes/api/manager');
 
 const app = express();
 
@@ -36,6 +37,7 @@ require('./config/passport')(passport);
 
 // Use Routes
 app.use('/api/users', users);
+app.use('/api/manager', manager);
 app.use('/api/plaid', plaid);
 
 // Serve static assets if in production

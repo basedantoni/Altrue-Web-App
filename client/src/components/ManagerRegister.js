@@ -1,39 +1,27 @@
 import React, { Component } from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
-import { registerUser } from "../actions/authActions";
-import { connect } from "react-redux";
+import axios from "axios";
+// import PropTypes from "prop-types";
+// import { registerUser } from "../actions/authActions";
+// import { connect } from "react-redux";
+// import classNames from "classnames";
 
-class Register extends Component {
-  constructor() {
-    super()
+class ManagerRegister extends Component {
+  constructor(props) {
+    super(props)
 
     this.state = {
       name: "",
       username: "",
       email: "",
+      orgId: "",
+      orgName: "",
       password: "",
       password2: "",
       toDashboard: false,
       errors: {}
     };
   }
-
-  componentDidMount() {
-    // If logged in and user navigates to Register page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
-  }
-
 
   onChange = (e) => {
     this.setState({
@@ -44,7 +32,7 @@ class Register extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const newUser = {
+    const newManager = {
       name: this.state.name,
       username: this.state.username,
       email: this.state.email,
@@ -52,8 +40,14 @@ class Register extends Component {
       password2: this.state.password2
     }
 
-    this.props.registerUser(newUser, this.props.history); 
-  };
+    axios
+    .post("http://localhost:5000/api/manager/register", newManager)
+    .then(res => console.log(res))
+    .then(() => this.setState(() => ({
+      toDashboard: true
+    })))
+    .catch(err => console.log(err));
+  }
 
   render() {
     const { name, username, email, password, password2, toDashboard, errors } = this.state
@@ -120,18 +114,4 @@ class Register extends Component {
   }
 }
 
-Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  //errors: PropTypes.object.isRequired
-}
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(withRouter(Register));
+export default ManagerRegister

@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 import PostForm from './PostForm';
+import { fetchPosts } from '../actions/postActions';
+import { connect } from 'react-redux';
 
 class Post extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: []
-    }
-  }
-
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
   }
 
   componentWillMount() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then(data => this.setState({ posts: data }))
+    this.props.fetchPosts();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.newPost) {
+      this.props.post.unshift(nextProps.newPost);
+    }
   }
 
   render() {
-    const postItems = this.state.posts.map(post => (
+    const postItems = this.props.post.map(post => (
       <div key={post.id}>
         <h3>{post.title}</h3>
         <p>{post.body}</p>
@@ -37,4 +37,15 @@ class Post extends Component {
   }
 }
 
-export default Post
+Post.propTypes = {
+  fetchPosts: PropTypes.func.isRequired,
+  post: PropTypes.array.isRequired,
+  newItem: PropTypes.object
+}
+
+const mapStateToProps = state => ({
+  post: state.post.items,
+  newPost: state.post.item
+})
+
+export default connect(mapStateToProps, { fetchPosts })(Post);
