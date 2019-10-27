@@ -1,7 +1,7 @@
 {
   "name": "altrue-poc",
   "version": "1.0.0",
-  "description": "Altrue POC",
+  "description": "Altrue",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefx client",
