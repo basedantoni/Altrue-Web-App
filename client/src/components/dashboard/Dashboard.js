@@ -31,7 +31,7 @@ class Dashboard extends Component {
     const { accounts, accountsLoading } = this.props.plaid;
 
     let dashboardContent;
-    cif (accounts === null || accountsLoading) {
+    if (accounts === null || accountsLoading) {
       dashboardContent = <p className="center-align">Loading...</p>;
     } else if (accounts.length > 0) {
       // User has accounts linked
