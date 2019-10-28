@@ -41,10 +41,20 @@ app.use(function(req, res, next) {
   next();
 });
 
+const {
+  receivePublicToken,
+  getTransactions
+  } = require("./controllers/controller");
+
 // Use Routes
 app.use('/api/users', users);
 app.use('/api/manager', manager);
 app.use('/api/plaid', plaid);
+
+// Get the public token and exchange it for an access token
+app.post("/auth/public_token", receivePublicToken);
+// Get Transactions
+app.get("/transactions", getTransactions);
 
 // Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {

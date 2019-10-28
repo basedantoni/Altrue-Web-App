@@ -15,6 +15,7 @@ import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/dashboard/Dashboard";
 import Post from "./components/Post";
 import PrivateRoute from "./components/private-route/PrivateRoute";
+import Link from "./components/Link"
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -49,7 +50,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard}/>
             </Switch>
-            <Route exact path="/post" component={Post} />
+            <Route exact path="/link" component={Link} />
           </div>
         </Router>
       </Provider>
