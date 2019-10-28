@@ -5,13 +5,12 @@ const jwt = require('jsonwebtoken');
 const keys = require("../../config/keys");
 
 // Input Validation
-const validateRegisterInput = require('../../validation/register');
-const validateLoginInput = require('../../validation/login');
+const validateRegisterInput = require('../../validation/register/register');
+const validateLoginInput = require('../../validation/login/login');
 
 // User Model
 const User = require('../../models/User');
 const Poc = require('../../models/Poc');
-
 
 // @route POST api/users/register
 // @desc Register user
@@ -66,11 +65,11 @@ router.post('/login', (req,res) => {
   //   return res.status(400).json(errors);
   // }
 
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
   // Find user by username
-  User.findOne({ username }).then(user => {
+  User.findOne({ email }).then(user => {
     // Checks if user exists
     if (!user) {
       return res.status(400).json({ emailnotfound: 'Email not found'});
