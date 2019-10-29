@@ -12,7 +12,7 @@ const validateLoginInput = require('../../validation/login/login');
 const User = require('../../models/User');
 const Poc = require('../../models/Poc');
 
-// @route POST api/users/register
+// @route POST api/users/registe
 // @desc Register user
 // @access Public
 router.post('/register', (req, res) => {
