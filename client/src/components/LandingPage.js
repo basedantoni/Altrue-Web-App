@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Logo from './logo.png';
 
 class LandingPage extends Component {
 
@@ -9,7 +10,9 @@ class LandingPage extends Component {
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              Altrue a hub for volunteer <b>work</b> and <b>charity</b>
+              <img src={Logo} alt='website logo' />
+              <br></br>
+              A hub for volunteer <b>work</b> and <b>charity</b>
             </h4>
             <p className="flow-text grey-text text-darken-1">
               Donate your time or money to the non-profit organization of your choice.
