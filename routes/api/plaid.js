@@ -37,8 +37,8 @@ router.post(
 
     const userId = req.user.id;
 
-    const bank = req.metadata.bank;
-    const { name, bank_id } = bank;
+    const bank = req.body.metadata.institution;
+    const { name, institution_id } = bank;
 
     if(PUBLIC_TOKEN) {
       client
@@ -50,7 +50,7 @@ router.post(
           // Check if account already exists
           Account.findOne({
             userId: req.user.id,
-            bankId: bank_id
+            bankId: institution_id
           })
             .then(account => {
               if(account) {
@@ -61,7 +61,7 @@ router.post(
                   userId: userId,
                   accessToken: ACCESS_TOKEN,
                   itemId: ITEM_ID,
-                  bankId: bank_id,
+                  bankId: institution_id,
                   bankName: name
                 });
           newAccount.save().then(account => res.json(account));

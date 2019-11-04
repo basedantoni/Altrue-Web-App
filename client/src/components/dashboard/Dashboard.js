@@ -80,10 +80,12 @@ Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   plaid: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
   auth: state.auth,
   plaid: state.plaid
 });
+
 export default connect(
   mapStateToProps,
   { logoutUser, getAccounts, addAccount }
