@@ -22,6 +22,12 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now()
+  },
+  totalSaved: {
+    type: Number,
+  },
+  voluteerHours : {
+    type: Number
   }
 });
 

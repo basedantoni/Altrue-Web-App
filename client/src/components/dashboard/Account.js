@@ -5,12 +5,12 @@ import { connect } from "react-redux";
 import {
   getTransactions,
   addAccount,
-  deleteAccount
+  deleteAccount,
+  getYearlyTransactions
 } from "../../actions/plaidActions";
 
 import { logoutUser } from "../../actions/authActions";
 import MaterialTable from "material-table"; // https://mbrn.github.io/material-table/#/
-import { totalmem } from "os";
 
 class Accounts extends Component {
   componentDidMount() {
@@ -41,7 +41,6 @@ class Accounts extends Component {
     e.preventDefault();
     this.props.logoutUser();
   };
-
   // Round up donations
   roundUp = amount => {
     return amount
@@ -71,7 +70,8 @@ render() {
     ];
 
     let transactionsData = [];
-    let donateTotal = 0
+    let donateTotal = 0;
+
     transactions.forEach(function(account) {
       account.transactions.forEach(function(transaction) {
         const round = Math.round(100*(Math.ceil(transaction.amount) - transaction.amount))/100
@@ -159,6 +159,7 @@ render() {
 Accounts.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   getTransactions: PropTypes.func.isRequired,
+  getYearlyTransactions: PropTypes.func.isRequired,
   addAccount: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   accounts: PropTypes.array.isRequired,
@@ -172,5 +173,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, getTransactions, addAccount, deleteAccount }
+  { logoutUser, getTransactions, addAccount, deleteAccount, getYearlyTransactions }
 )(Accounts);

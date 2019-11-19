@@ -135,4 +135,39 @@ router.post(
   }
 );
 
+// @route POST api/plaid/accounts/all-transactions
+// @desc Fetch transactions from past 30 days from all linked accounts
+// @access Private
+router.post(
+  "/accounts/all-transactions",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const now = moment();
+    const today = now.format("YYYY-MM-DD");
+    const oneYearAgo = now.subtract(365, "days").format("YYYY-MM-DD"); // Change this if you want more transactions
+  let transactions = [];
+  const accounts = req.body;
+  if (accounts) {
+      accounts.forEach(function(account) {
+        ACCESS_TOKEN = account.accessToken;
+        const bankName = account.bankName;
+        client
+          .getTransactions(ACCESS_TOKEN, oneYearAgo, today)
+          .then(response => {
+            transactions.push({
+              accountName: bankName,
+              transactions: response.transactions
+            });
+            // Don't send back response till all transactions have been added
+            if (transactions.length === accounts.length) {
+              res.json(transactions);
+              console.log(res);
+            }
+          })
+          .catch(err => console.log(err));
+      });
+    }
+  }
+);
+
 module.exports = router;

@@ -4,7 +4,8 @@ import {
     GET_ACCOUNTS,
     ACCOUNTS_LOADING,
     GET_TRANSACTIONS,
-    TRANSACTIONS_LOADING
+    TRANSACTIONS_LOADING,
+    GET_YEARLY_TRANSACTIONS
   } from "../actions/types";
   const initialState = {
     accounts: [],
@@ -48,6 +49,12 @@ import {
           transactions: action.payload,
           transactionsLoading: false
         };
+      case GET_YEARLY_TRANSACTIONS:
+        return {
+          ...state,
+          transactions: action.payload,
+          transactionsLoading: false
+        }
       default:
         return state;
     }
