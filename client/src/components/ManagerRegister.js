@@ -40,8 +40,9 @@ class ManagerRegister extends Component {
       password2: this.state.password2
     }
 
+    // this.props.registerUser(newManager, this.props.history); 
     axios
-    .post("http://localhost:5000/api/manager/register", newManager)
+    .post("http://localhost:5000/api/manager", newManager)
     .then(res => console.log(res))
     .then(() => this.setState(() => ({
       toDashboard: true
@@ -53,7 +54,7 @@ class ManagerRegister extends Component {
     const { name, username, email, password, password2, toDashboard, errors } = this.state
 
     if (toDashboard === true) {
-      return <Redirect to='/dashboard' />
+      return <Redirect to='/manager-login' />
     }
 
     return (

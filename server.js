@@ -7,6 +7,7 @@ const path = require('path');
 const users = require('./routes/api/users');
 const plaid = require('./routes/api/plaid');
 const manager = require('./routes/api/manager');
+const eventbrite = require('./routes/api/eventbrite');
 
 const app = express();
 

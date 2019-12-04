@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import {
   getTransactions,
   addAccount,
-  deleteAccount
+  deleteAccount,
+  getYearlyTransactions
 } from "../../actions/plaidActions";
 
 import { logoutUser } from "../../actions/authActions";
@@ -40,37 +41,45 @@ class Accounts extends Component {
     e.preventDefault();
     this.props.logoutUser();
   };
+  // Round up donations
+  roundUp = amount => {
+    return amount
+  }
 
 render() {
     const { user, accounts } = this.props;
     const { transactions, transactionsLoading } = this.props.plaid;
     let accountItems = accounts.map(account => (
-      <li key={account._id} style={{ marginTop: "1rem" }}>
+      <div key={account._id}>
         <button
-          style={{ marginRight: "1rem" }}
           onClick={this.onDeleteClick.bind(this, account._id)}
-          className="btn btn-small btn-floating waves-effect waves-light hoverable red accent-3"
         >
-          <i className="material-icons">delete</i>
+        Delete
         </button>
         <b>{account.institutionName}</b>
-      </li>
+      </div>
     ));
+
     // Setting up data table
     const transactionsColumns = [
       { title: "Account", field: "account" },
       { title: "Date", field: "date", type: "date", defaultSort: "desc" },
       { title: "Name", field: "name" },
       { title: "Amount", field: "amount" },
-      { title: "Category", field: "category" }
+      { title: "Donation", field: "donation" }
     ];
+
     let transactionsData = [];
+    let donateTotal = 0;
+
     transactions.forEach(function(account) {
       account.transactions.forEach(function(transaction) {
+        const round = Math.round(100*(Math.ceil(transaction.amount) - transaction.amount))/100
+        donateTotal += round
         transactionsData.push({
           account: account.accountName,
           date: transaction.date,
-          category: transaction.category[0],
+          donation: round,
           name: transaction.name,
           amount: transaction.amount
         });
@@ -82,27 +91,25 @@ render() {
         <div className="col s12">
           <button
             onClick={this.onLogoutClick}
-            className="btn-flat waves-effect"
           >
-            <i className="material-icons left">keyboard_backspace</i> Log Out
+          Log Out
           </button>
           <h4>
             <b>Welcome!</b>
           </h4>
-          <p className="grey-text text-darken-1">
+          <p>
             Hey there, {user.name.split(" ")[0]}
           </p>
           <h5>
             <b>Linked Accounts</b>
           </h5>
-          <p className="grey-text text-darken-1">
+          <p>
             Add or remove your bank accounts below
           </p>
           <ul>{accountItems}</ul>
           <PlaidLinkButton
             buttonProps={{
-              className:
-                "btn btn-large waves-effect waves-light hoverable blue accent-3 main-btn"
+
             }}
             plaidLinkProps={{
               clientName: "Altrue",
@@ -115,6 +122,9 @@ render() {
           >
             Add Account
           </PlaidLinkButton>
+          <hr style={{ marginTop: "2rem", opacity: ".2" }} />
+          <h2>Total Change Rounded Up</h2>
+          <h3>${Math.round(100 * donateTotal)/100}</h3>
           <hr style={{ marginTop: "2rem", opacity: ".2" }} />
           <h5>
             <b>Transactions</b>
@@ -136,7 +146,7 @@ render() {
               <MaterialTable
                 columns={transactionsColumns}
                 data={transactionsData}
-                title="Search Transactions"
+                title="Transactions"
               />
             </>
           )}
@@ -149,6 +159,7 @@ render() {
 Accounts.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   getTransactions: PropTypes.func.isRequired,
+  getYearlyTransactions: PropTypes.func.isRequired,
   addAccount: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   accounts: PropTypes.array.isRequired,
@@ -162,5 +173,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, getTransactions, addAccount, deleteAccount }
+  { logoutUser, getTransactions, addAccount, deleteAccount, getYearlyTransactions }
 )(Accounts);

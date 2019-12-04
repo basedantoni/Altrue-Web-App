@@ -6,7 +6,8 @@ import {
   GET_ACCOUNTS,
   ACCOUNTS_LOADING,
   GET_TRANSACTIONS,
-  TRANSACTIONS_LOADING
+  TRANSACTIONS_LOADING,
+  GET_YEARLY_TRANSACTIONS
 } from "./types";
 
 // Add account
@@ -95,3 +96,21 @@ export const setTransactionsLoading = () => {
       type: TRANSACTIONS_LOADING
     };
 };
+// Get Transactions from past year
+export const getYearlyTransactions = plaidData => dispatch => {
+  dispatch(setTransactionsLoading());
+  axios
+    .post("/api/plaid/accounts/all-transactions", plaidData)
+    .then(res =>
+      dispatch({
+        type: GET_YEARLY_TRANSACTIONS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_YEARLY_TRANSACTIONS,
+        payload: null
+      })
+    );
+}

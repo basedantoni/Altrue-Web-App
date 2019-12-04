@@ -8,6 +8,7 @@ class Register extends Component {
   constructor() {
     super()
 
+    //Updated from onChange changes
     this.state = {
       name: "",
       username: "",
@@ -34,13 +35,14 @@ class Register extends Component {
     }
   }
 
-
+  //Displays text from text field, changing everything in initial state
   onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
   }
 
+  //Submit button for register created
   onSubmit = (e) => {
     e.preventDefault();
 

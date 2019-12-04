@@ -16,6 +16,10 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Post from "./components/Post";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Link from "./components/Link"
+import Events from "./components/Events";
+import CreateEvents from "./components/CreateEvents";
+import ManagerRegister from "./components/ManagerRegister";
+import ManagerLogin from "./components/ManagerLogin";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -46,7 +50,11 @@ class App extends Component {
           <div className="App">
             <Route exact path="/" component={LandingPage}/>
             <Route exact path="/register" component={Register}/>
+            <Route exact path="/manager-register" component={ManagerRegister}/>
             <Route exact path="/login" component={Login}/>
+            <Route exact path="/manager-login" component={ManagerLogin}/>
+            <Route exact path="/events" component={Events}/>
+            <Route exact path="/create-events" component={CreateEvents}/>
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard}/>
             </Switch>

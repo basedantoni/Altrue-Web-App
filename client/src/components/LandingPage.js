@@ -18,7 +18,9 @@ class LandingPage extends Component {
               Donate your time or money to the non-profit organization of your choice.
             </p>
             <br />
+            <br/><br/>
             <div className="col s6">
+              <p><h2>Users</h2></p>
               <Link
                 to="/register"
                 style={{
@@ -33,6 +35,30 @@ class LandingPage extends Component {
               <div className="col s6">
                 <Link
                   to="/login"
+                  style={{
+                    width: "140px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px"
+                  }}
+                  className="btn btn-large btn-flat waves-effect white black-text"
+                  >Login
+                </Link>
+                <br/><br/><br/>
+                <p><h2>Org Managers</h2></p>
+              <Link
+                to="/manager-register"
+                style={{
+                  width: "140px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px"
+                }}
+                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                >Register
+              </Link>
+            </div>
+              <div className="col s6">
+                <Link
+                  to="/manager-login"
                   style={{
                     width: "140px",
                     borderRadius: "3px",

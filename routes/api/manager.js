@@ -6,7 +6,7 @@ const keys = require("../../config/keys");
 
 // Input Validation
 const validateRegisterInput = require('../../validation/register/manager-register');
-const validateLoginInput = require('../../validation/login/login');
+const validateLoginInput = require('../../validation/login/manager-login');
 
 // Manager Model
 const Manager = require('../../models/Manager');
@@ -14,7 +14,7 @@ const Manager = require('../../models/Manager');
 // @route POST api/managers/register
 // @desc Register Orginization Manager
 // @access Public
-router.post('/register', (req, res) => {
+router.post('/register/manager-register', (req, res) => {
   
   // Form validation
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -52,5 +52,101 @@ router.post('/register', (req, res) => {
     }
   });
 });
+
+// @route POST api/users/login
+// @desc Login user and return JWT token
+// @access Public
+router.post('/login/manager-login', (req,res) => {
+  // Form Validation
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check validation
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by username
+  Manager.findOne({ email }).then(user => {
+    // Checks if user exists
+    if (!user) {
+      return res.status(400).json({ emailnotfound: 'Email not found'});
+    }
+
+    // Checks Password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // User method
+        // Creat JWT Payload
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
+
+        // Sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 31556926 // 1 year in seconds
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: 'Bearer ' + token
+            });
+          }
+        );
+      }
+      else {
+        return res
+          .status(400)
+          .json({ passwordinccorect: 'Password incorrect' });
+      }
+    });
+  });
+});
+
+// @route GET api/manager
+// @desc Get All managers
+// @access Public
+router.get('/', (req, res) => {
+  Manager.find()
+    .sort({date: -1})
+    .then(manager => res.json(manager));
+});
+
+
+// @route POST api/manager
+// @desc Create A User
+// @access Public
+router.post('/', (req, res) => {
+  console.log(req.body);
+  const newManager = new Manager({
+    name: req.body.name,
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    password2: req.body.password2
+
+  });
+
+  newManager
+    .save()
+    .then(manager => res.json(manager))
+    .catch(err => { res.status(400).json({ success: false })});
+});
+
+// @route DELETE api/manager/:id
+// @desc Delete A Manager
+// @access Public
+router.delete('/:id', (req, res) => {
+  Manager.findById(req.params.id)
+    .then(item => item.remove().then(() => res.json({ success: true })))
+    .catch(err => res.status(404).json({ success: false }));
+});
+
 
 module.exports = router;
