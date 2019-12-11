@@ -53,6 +53,18 @@ class LandingPage extends Component {
             </div>
             <div className="col s6">
               <Link
+                to="/loginManager"
+                style={{
+                  width: "200px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px"
+                }}
+                className="btn btn-large btn-flat waves-effect white black-text"
+                >Manager Login
+              </Link>
+            </div>
+            <div className="col s6">
+              <Link
                 to="/loginAdmin"
                 style={{
                   width: "140px",
