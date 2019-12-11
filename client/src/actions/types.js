@@ -1,6 +1,8 @@
 export const GET_ERRORS = "GET_ERRORS";
 export const USER_LOADING = "USER_LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const SET_CURRENT_MANAGER = "SET_CURRENT_MANAGER";
+export const SET_CURRENT_ADMIN = "SET_CURRENT_ADMIN";
 export const FETCH_POSTS = "FETCH_POSTS";
 export const NEW_POSTS = "NEW_POSTS";
 export const ADD_ACCOUNT = "ADD_ACCOUNT";

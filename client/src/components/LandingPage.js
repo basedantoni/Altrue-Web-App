@@ -27,18 +27,42 @@ class LandingPage extends Component {
                 >Register
               </Link>
             </div>
-              <div className="col s6">
-                <Link
-                  to="/login"
-                  style={{
-                    width: "140px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px"
-                  }}
-                  className="btn btn-large btn-flat waves-effect white black-text"
-                  >Login
-                </Link>
-              </div>
+            <div className="col s6">
+              <Link
+                to="/login"
+                style={{
+                  width: "140px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px"
+                }}
+                className="btn btn-large btn-flat waves-effect white black-text"
+                >Login
+              </Link>
+            </div>
+            <div className="col s6">
+              <Link
+                to="/registerManager"
+                style={{
+                  width: "200px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px"
+                }}
+                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                >Register as Manager
+              </Link>
+            </div>
+            <div className="col s6">
+              <Link
+                to="/loginAdmin"
+                style={{
+                  width: "140px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px"
+                }}
+                className="btn btn-large btn-flat waves-effect white black-text"
+                >Admin Login
+              </Link>
+            </div>
           </div>
         </div>
       </div>

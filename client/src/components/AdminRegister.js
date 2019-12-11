@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
-import { registerManager } from "../actions/authActions";
+import { registerAdmin } from "../actions/authActions";
 import { connect } from "react-redux";
 
-class ManagerRegister extends Component {
+class AdminRegister extends Component {
   constructor() {
     super()
 
@@ -12,13 +12,26 @@ class ManagerRegister extends Component {
       name: "",
       username: "",
       email: "",
-      orgId: "",
-      orgName: "",
       password: "",
       password2: "",
       toDashboard: false,
       errors: {}
     };
+  }
+
+  componentDidMount() {
+    // If logged in and user navigates to Register page, should redirect them to dashboard
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/adminDashboard");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
   }
 
   onChange = (e) => {
@@ -30,24 +43,22 @@ class ManagerRegister extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const newManager = {
+    const newAdmin = {
       name: this.state.name,
       username: this.state.username,
       email: this.state.email,
-      orgId: this.state.orgId,
-      orgName: this.state.orgName,
       password: this.state.password,
       password2: this.state.password2
     }
 
-    this.props.registerManager(newManager, this.props.history); 
-  }
+    this.props.registerAdmin(newAdmin, this.props.history); 
+  };
 
   render() {
-    const { name, username, email, orgId, orgName, password, password2, toDashboard, errors } = this.state
+    const { name, username, email, password, password2, toDashboard, errors } = this.state
 
     if (toDashboard === true) {
-      return <Redirect to='/dashboard' />
+      return <Redirect to='/adminLogin' />
     }
 
     return (
@@ -84,24 +95,6 @@ class ManagerRegister extends Component {
             errors={errors.email}/>
           </div>
           <div>
-            <label>Orginization ID: </label>
-            <input 
-            id="orgId"
-            type="text" 
-            value={orgId} 
-            onChange={this.onChange}
-            errors={errors.orgId}/>
-          </div>
-          <div>
-            <label>Orginization Name: </label>
-            <input 
-            id="orgName"
-            type="text" 
-            value={orgName} 
-            onChange={this.onChange}
-            errors={errors.orgName}/>
-          </div>
-          <div>
             <label>Password: </label>
             <input 
             id="password"
@@ -126,10 +119,10 @@ class ManagerRegister extends Component {
   }
 }
 
-ManagerRegister.propTypes = {
-  registerManager: PropTypes.func.isRequired,
+AdminRegister.propTypes = {
+  registerAdmin: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  //errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -139,5 +132,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerManager }
-)(withRouter(ManagerRegister));
+  { registerAdmin }
+)(withRouter(AdminRegister));

@@ -11,11 +11,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import ManagerRegister from "./components/ManagerRegister";
 import LandingPage from "./components/LandingPage";
 import Dashboard from "./components/dashboard/Dashboard";
-//import Post from "./components/Post";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Link from "./components/Link"
+import ManagerLogin from "./components/ManagerLogin";
+import ManagerDashboard from "./components/dashboard/ManagerDashboard";
+import AdminLogin from "./components/AdminLogin";
+import AdminDashboard from "./components/dashboard/AdminDashboard";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -47,8 +51,13 @@ class App extends Component {
             <Route exact path="/" component={LandingPage}/>
             <Route exact path="/register" component={Register}/>
             <Route exact path="/login" component={Login}/>
+            <Route exact path="/registerManager" component={ManagerRegister}/>
+            <Route exact path="/loginManager" component={ManagerLogin}/>
+            <Route exact path="/loginAdmin" component={AdminLogin}/>
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+              <PrivateRoute exact path="/managerDashboard" component={ManagerDashboard}/>
+              <PrivateRoute exact path="/adminDashboard" component={AdminDashboard}/>
             </Switch>
             <Route exact path="/link" component={Link} />
           </div>

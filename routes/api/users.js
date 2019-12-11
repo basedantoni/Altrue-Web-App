@@ -10,9 +10,8 @@ const validateLoginInput = require('../../validation/login/login');
 
 // User Model
 const User = require('../../models/User');
-const Poc = require('../../models/Poc');
 
-// @route POST api/users/registe
+// @route POST api/users/register
 // @desc Register user
 // @access Public
 router.post('/register', (req, res) => {
@@ -90,7 +89,7 @@ router.post('/login', (req,res) => {
           payload,
           keys.secretOrKey,
           {
-            expiresIn: 31556926 // 1 year in seconds
+            expiresIn: 86400 // 1 day in seconds
           },
           (err, token) => {
             res.json({
@@ -116,15 +115,6 @@ router.get('/', (req, res) => {
   User.find()
     .sort({date: -1})
     .then(users => res.json(users));
-});
-
-// @route GET api/users
-// @desc Get All POC
-// @access Public
-router.get('/poc', (req, res) => {
-  Poc.find()
-    .sort({date: -1})
-    .then(pocs => res.json(pocs));
 });
 
 // @route POST api/users
@@ -155,5 +145,13 @@ router.delete('/:id', (req, res) => {
     .then(item => item.remove().then(() => res.json({ success: true })))
     .catch(err => res.status(404).json({ success: false }));
 });
+
+// @route UPDATE api/users/:id
+// @desc Update a User's donation amount
+// @access Public
+router.post('/:id', (req,res) => {
+  User.findById(req.params.id)
+    .then()
+})
 
 module.exports = router;

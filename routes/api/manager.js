@@ -11,7 +11,7 @@ const validateLoginInput = require('../../validation/login/login');
 // Manager Model
 const Manager = require('../../models/Manager');
 
-// @route POST api/managers/register
+// @route POST api/manager/register
 // @desc Register Orginization Manager
 // @access Public
 router.post('/register', (req, res) => {
@@ -32,9 +32,9 @@ router.post('/register', (req, res) => {
       const newManager = new Manager({
         name: req.body.name,
         username: req.body.username,
-        ordId: req.body.org_id,
-        orgName: req.body.org_name,
         email: req.body.email,
+        orgId: parseInt(req.body.orgId, 10),
+        orgName: req.body.orgName,
         password: req.body.password
       });
 
@@ -51,6 +51,74 @@ router.post('/register', (req, res) => {
       });
     }
   });
+});
+
+// @route POST api/manager/login
+// @desc Login manager and return JWT token
+// @access Public
+router.post('/login', (req,res) => {
+  // Form Validation
+  const { errors, isValid } = validateLoginInput(req.body);
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Find user by username
+  Manager.findOne({ email }).then(manager => {
+    // Checks if user exists
+    if (!manager) {
+      return res.status(400).json({ emailnotfound: 'Email not found'});
+    }
+
+    // Checks Password
+    bcrypt.compare(password, manager.password).then(isMatch => {
+      if (isMatch) {
+        // User method
+        // Creat JWT Payload
+        const payload = {
+          id: manager.id,
+          name: manager.name
+        };
+
+        // Sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 86400 // 1 year in seconds
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: 'Bearer ' + token
+            });
+          }
+        );
+      }
+      else {
+        return res
+          .status(400)
+          .json({ passwordinccorect: 'Password incorrect' });
+      }
+    });
+  });
+});
+
+// @route GET api/manager
+// @desc Get All manager
+// @access Public
+router.get('/', (req, res) => {
+  Manager.find()
+    .sort({date: -1})
+    .then(managers => res.json(managers));
+});
+
+// @route DELETE api/manager/:id
+// @desc Delete A User
+// @access Public
+router.delete('/:id', (req, res) => {
+  Manager.findById(req.params.id)
+    .then(item => item.remove().then(() => res.json({ success: true })))
+    .catch(err => res.status(404).json({ success: false }));
 });
 
 module.exports = router;

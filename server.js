@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
+const cors = require('cors');
 
 const users = require('./routes/api/users');
 const plaid = require('./routes/api/plaid');
 const manager = require('./routes/api/manager');
+const admin = require('./routes/api/admin');
 
 const app = express();
 
@@ -15,6 +17,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -26,8 +29,6 @@ mongoose.connect(db, {
   })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
-
-
 
 // Passport Middelware
 app.use(passport.initialize());
@@ -45,6 +46,7 @@ app.use(function(req, res, next) {
 app.use('/api/users', users);
 app.use('/api/manager', manager);
 app.use('/api/plaid', plaid);
+app.use('/api/admin', admin);
 
 // Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {
