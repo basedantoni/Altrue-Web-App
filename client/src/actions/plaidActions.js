@@ -65,6 +65,7 @@ export const getAccounts = () => dispatch => {
         })
       );
   };
+  
   // Accounts loading
   export const setAccountsLoading = () => {
     return {

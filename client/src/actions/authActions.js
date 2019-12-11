@@ -3,10 +3,11 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
+  GET_USERS,
   SET_CURRENT_USER,
   SET_CURRENT_MANAGER,
   SET_CURRENT_ADMIN,
-  //USER_LOADING
+  USER_LOADING
 } from "./types"
 
 // Register User
@@ -161,10 +162,14 @@ export const setCurrentAdmin = decoded => {
 };
 
 export const getUsers = () => dispatch => {
+  dispatch(setUsersLoading());
   axios
     .get('/api/users')
     .then(res => {
-      console.log(res.body);
+      dispatch({
+        type: GET_USERS,
+        payload: res.data
+      })
     })
     .catch(err => 
       dispatch({
@@ -172,4 +177,11 @@ export const getUsers = () => dispatch => {
         payload: null // should be `err.response.data` but it will have to be null for now
       })
     );
+};
+
+// Accounts loading
+export const setUsersLoading = () => {
+  return {
+    type: USER_LOADING
+  };
 };

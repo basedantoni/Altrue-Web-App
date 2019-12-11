@@ -112,9 +112,14 @@ router.post('/login', (req,res) => {
 // @desc Get All users
 // @access Public
 router.get('/', (req, res) => {
-  User.find()
+  User
+    .find()
     .sort({date: -1})
-    .then(users => res.json(users));
+    .then(user => {
+      return res.json(user)
+    });
+
+  
 });
 
 // @route POST api/users
