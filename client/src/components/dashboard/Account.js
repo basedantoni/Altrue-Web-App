@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Stats from './Stats';
 import PropTypes from "prop-types";
 import PlaidLinkButton from "react-plaid-link-button";
 import { connect } from "react-redux";
@@ -47,7 +48,7 @@ class Accounts extends Component {
   }
 
 render() {
-    const { user, accounts } = this.props;
+    const { accounts } = this.props;
     const { transactions, transactionsLoading } = this.props.plaid;
     let accountItems = accounts.map(account => (
       <div key={account._id}>
