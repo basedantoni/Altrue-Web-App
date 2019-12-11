@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import { getUsers } from "../../actions/adminActions";
+import { getUsers, deleteUser } from "../../actions/adminActions";
 import MaterialTable from "material-table";
 
 class AdminDashboard extends Component {
@@ -26,37 +26,47 @@ class AdminDashboard extends Component {
         name: user.name,
         email: user.email,
         username: user.username,
-        date: user.date
+        date: user.date.substring(0,10),
+        userId: user._id
       })
     });
 
-    console.log(userData)
     const userColumns = [
      { title: "Name", field: "name" },
      { title: "Email", field: "email" },
      { title: "Username", field: "username"},
      { title: "Date Joined", field: "date" },
-    ];
-
-    const actions = [
-      { icon:  'delete',
-        tooltip: 'Delete User',
-        onClick: () => window.confirm('You want to delete   ?')
-      }
+     { title: "User ID", field: "userId"}
     ];
 
     return (
       <div>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
         <h1>Hello Admin!</h1>
         <div style={{ maxWidth: '80%', margin: 'auto' }}>
-          <MaterialTable
-            actions={actions}
+          <MaterialTable   
+            actions = {[
+              { 
+                icon:  'delete',
+                tooltip: 'Delete User',
+                onClick: (e, userColumns) => {
+                  const confirm = window.confirm('You want to delete '+ userColumns.name +'?')
+                  if(confirm) {
+                    this.props.deleteUser(userColumns.userId)
+                    this.props.getUsers();                    
+                  }
+                }
+              }
+            ]}
             columns={userColumns}
             data={userData}
             title='Current Users'
             options={{
               headerStyle: {
-                backgroundColor: '#039be5',
+                backgroundColor: '#FFF',
               }
             }}
           />
@@ -75,6 +85,7 @@ class AdminDashboard extends Component {
 AdminDashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -85,5 +96,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, getUsers }
+  { logoutUser, getUsers, deleteUser }
 )(AdminDashboard);

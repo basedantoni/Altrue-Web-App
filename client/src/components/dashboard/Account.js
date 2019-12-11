@@ -74,32 +74,56 @@ render() {
 
     transactions.forEach(function(account) {
       account.transactions.forEach(function(transaction) {
-        const round = Math.round(100*(Math.ceil(transaction.amount) - transaction.amount))/100
-        donateTotal += round
-        transactionsData.push({
-          account: account.accountName,
-          date: transaction.date,
-          donation: round,
-          name: transaction.name,
-          amount: transaction.amount
-        });
+        if(transaction.amount > 0) {
+          const round = Math.round(100*(Math.ceil(transaction.amount) - transaction.amount))/100
+          donateTotal += round
+          transactionsData.push({
+            account: account.accountName,
+            date: transaction.date,
+            donation: round,
+            name: transaction.name,
+            amount: transaction.amount
+          });
+        }
       });
     });
 
     return (
       <div className="row">
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
         <div className="col s12">
-          <button
-            onClick={this.onLogoutClick}
-          >
-          Log Out
-          </button>
-          <h4>
-            <b>Welcome!</b>
-          </h4>
-          <p>
-            Hey there, {user.name.split(" ")[0]}
-          </p>
+          <h2>Total Change Rounded Up</h2>
+          <h3>${Math.round(100 * donateTotal)/100}</h3>
+          <hr style={{ marginTop: "2rem", opacity: ".2" }} />
+          <h5>
+            <b>Transactions</b>
+          </h5>
+          {transactionsLoading ? (
+            <p className="grey-text text-darken-1">Fetching transactions...</p>
+          ) : (
+            <>
+              <p className="grey-text text-darken-1">
+                You have <b>{transactionsData.length}</b> transactions from your
+                <b> {accounts.length}</b> linked
+                {accounts.length > 1 ? (
+                  <span> accounts </span>
+                ) : (
+                  <span> account </span>
+                )}
+                from the past 30 days
+              </p>
+              <div style={{ maxWidth: '80%', margin: 'auto' }}>
+                <MaterialTable
+                  columns={transactionsColumns}
+                  data={transactionsData}
+                  title="Transactions"
+                />
+              </div>
+            </>
+          )}
           <h5>
             <b>Linked Accounts</b>
           </h5>
@@ -122,34 +146,11 @@ render() {
           >
             Add Account
           </PlaidLinkButton>
-          <hr style={{ marginTop: "2rem", opacity: ".2" }} />
-          <h2>Total Change Rounded Up</h2>
-          <h3>${Math.round(100 * donateTotal)/100}</h3>
-          <hr style={{ marginTop: "2rem", opacity: ".2" }} />
-          <h5>
-            <b>Transactions</b>
-          </h5>
-          {transactionsLoading ? (
-            <p className="grey-text text-darken-1">Fetching transactions...</p>
-          ) : (
-            <>
-              <p className="grey-text text-darken-1">
-                You have <b>{transactionsData.length}</b> transactions from your
-                <b> {accounts.length}</b> linked
-                {accounts.length > 1 ? (
-                  <span> accounts </span>
-                ) : (
-                  <span> account </span>
-                )}
-                from the past 30 days
-              </p>
-              <MaterialTable
-                columns={transactionsColumns}
-                data={transactionsData}
-                title="Transactions"
-              />
-            </>
-          )}
+          <button
+            onClick={this.onLogoutClick}
+          >
+          Log Out
+          </button>
         </div>
       </div>
     );
