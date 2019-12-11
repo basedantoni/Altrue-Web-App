@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Logo from './logo.png';
 
 class LandingPage extends Component {
 
@@ -9,12 +10,19 @@ class LandingPage extends Component {
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              Altrue a hub for volunteer <b>work</b> and <b>charity</b>
+              <img src={Logo} alt='website logo' />
+              <br></br>
+              Austin's leading hub connecting
+              <br/>
+              <b>volunteers</b> to <b>charities</b>!
             </h4>
+            <br/>
             <p className="flow-text grey-text text-darken-1">
-              Donate your time or money to the non-profit organization of your choice.
+              <i>Register or login now to start donating your <br/>
+              time or money to the non-profit organizations of your choice.</i>
             </p>
             <br />
+            <p>———————————————</p>
             <div className="col s6">
               <Link
                 to="/register"
@@ -39,6 +47,8 @@ class LandingPage extends Component {
                 >Login
               </Link>
             </div>
+            <br/>
+            <p>————————</p>
             <div className="col s6">
               <Link
                 to="/registerManager"
@@ -60,9 +70,11 @@ class LandingPage extends Component {
                   letterSpacing: "1.5px"
                 }}
                 className="btn btn-large btn-flat waves-effect white black-text"
-                >Manager Login
+                >Login as a Manager
               </Link>
             </div>
+            <br/>
+            <p>————————</p>
             <div className="col s6">
               <Link
                 to="/loginAdmin"
@@ -75,6 +87,12 @@ class LandingPage extends Component {
                 >Admin Login
               </Link>
             </div>
+            <br/>
+            <p>—————————————————</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
           </div>
         </div>
       </div>

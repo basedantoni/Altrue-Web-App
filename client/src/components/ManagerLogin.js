@@ -55,7 +55,7 @@ class ManagerLogin extends Component {
     const { email, password, errors } = this.state;
     return (
       <div>
-        <h1>Login</h1>
+        <h1>Manager Login</h1>
         <Link 
         to="/">Home
         </Link>

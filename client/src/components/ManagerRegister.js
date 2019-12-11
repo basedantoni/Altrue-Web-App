@@ -52,6 +52,7 @@ class ManagerRegister extends Component {
 
     return (
       <div>
+        <h1>Manager Registration</h1>
         <Link 
         to="/">Home
         </Link>

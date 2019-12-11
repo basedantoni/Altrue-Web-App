@@ -63,6 +63,7 @@ class AdminRegister extends Component {
 
     return (
       <div>
+        <h1>Admin Registration</h1>
         <Link 
         to="/">Home
         </Link>
