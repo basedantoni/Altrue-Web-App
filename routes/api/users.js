@@ -120,6 +120,24 @@ router.get('/', (req, res) => {
     });
 });
 
+// @route GET api/users/stats/:id
+// @desc Get one users stats
+// @access Public
+router.get('/stats/:id', (req, res) => {
+  let stats = []
+  User
+    .findById(req.params.id)
+    .then(user => {
+      stats.push({
+        totalDonations: user.totalDonations,
+        volunteerHours: user.volunteerHours,
+        eventsAttendance: user.eventsAttendance,
+        contributionRank: user.contributionRank
+      })
+      return res.json(stats)
+    });
+});
+
 // @route POST api/users
 // @desc Create A User
 // @access Public

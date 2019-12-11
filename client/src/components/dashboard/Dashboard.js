@@ -6,6 +6,7 @@ import { logoutUser } from "../../actions/authActions";
 import { getAccounts, addAccount } from "../../actions/plaidActions";
 
 import Accounts from "./Account";
+import Stats from "./Stats";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -35,7 +36,7 @@ class Dashboard extends Component {
       dashboardContent = <p className="center-align">Loading...</p>;
     } else if (accounts.length > 0) {
       // User has accounts linked
-      dashboardContent = <Accounts user={user} accounts={accounts} />;
+      dashboardContent = <div><Accounts user={user} accounts={accounts} /><Stats/></div>;
     } else {
       // User has no accounts linked
       dashboardContent = (

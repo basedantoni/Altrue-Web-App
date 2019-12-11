@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
-
 import { Provider } from "react-redux";
 import store from "./store";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'semantic-ui-css/semantic.min.css';
 import "./App.css";
+
 import Register from "./components/Register";
 import Login from "./components/Login";
 import ManagerRegister from "./components/ManagerRegister";
@@ -20,7 +20,6 @@ import ManagerLogin from "./components/ManagerLogin";
 import ManagerDashboard from "./components/dashboard/ManagerDashboard";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/dashboard/AdminDashboard";
-import Stats from "./components/dashboard/Stats";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -50,7 +49,6 @@ class App extends Component {
         <Router>
           <div className="App">
             <Route exact path="/" component={LandingPage}/>
-            <Route exact path="/stats" component={Stats}/>
             <Route exact path="/register" component={Register}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/registerManager" component={ManagerRegister}/>

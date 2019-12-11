@@ -23,11 +23,21 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  totalSaved: {
-    type: Number,
+  totalDonations: {
+    type: String,
+    default: 0
   },
-  voluteerHours : {
-    type: Number
+  volunteerHours: {
+    type: String,
+    default: 0
+  },
+  eventsAttendance: {
+    type: String,
+    default: 0
+  },
+  contributionRank: {
+    type: String,
+    default: 0
   }
 });
 

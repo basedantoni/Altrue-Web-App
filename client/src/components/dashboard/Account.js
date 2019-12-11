@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Stats from './Stats';
 import PropTypes from "prop-types";
 import PlaidLinkButton from "react-plaid-link-button";
 import { connect } from "react-redux";
@@ -116,7 +115,7 @@ render() {
                 )}
                 from the past 30 days
               </p>
-              <div style={{ maxWidth: '80%', margin: 'auto' }}>
+              <div style={{ maxWidth: '80%', margin: '30px auto' }}>
                 <MaterialTable
                   columns={transactionsColumns}
                   data={transactionsData}
@@ -147,11 +146,13 @@ render() {
           >
             Add Account
           </PlaidLinkButton>
-          <button
-            onClick={this.onLogoutClick}
-          >
-          Log Out
-          </button>
+          <div>
+            <button
+              onClick={this.onLogoutClick}
+            >
+            Log Out
+            </button>
+          </div>
         </div>
       </div>
     );
