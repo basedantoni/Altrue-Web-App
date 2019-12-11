@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser, getUsers } from "../../actions/authActions";
+import { logoutUser } from "../../actions/authActions";
+import { getUsers } from "../../actions/adminActions";
 import MaterialTable from "material-table";
 
 class AdminDashboard extends Component {
+  
   componentDidMount() {
-    const { users } = this.props;
     this.props.getUsers();
   }
 
@@ -16,12 +17,24 @@ class AdminDashboard extends Component {
   }
 
   render() {
-    const { users } = this.props
-    console.log(users)
+    const { users } = this.props.admin
 
+    let userData = [];
+
+    users.forEach(user => {
+      userData.push({
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        date: user.date
+      })
+    });
+
+    console.log(userData)
     const userColumns = [
-     { title: "Username", field: "username" },
+     { title: "Name", field: "name" },
      { title: "Email", field: "email" },
+     { title: "Username", field: "username"},
      { title: "Date Joined", field: "date" },
     ];
 
@@ -31,8 +44,6 @@ class AdminDashboard extends Component {
         onClick: () => window.confirm('You want to delete   ?')
       }
     ];
-
-    let userData = [];
 
     return (
       <div>
@@ -69,6 +80,7 @@ AdminDashboard.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  admin: state.admin
 });
 
 export default connect(

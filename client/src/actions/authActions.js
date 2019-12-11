@@ -3,7 +3,6 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
-  GET_USERS,
   SET_CURRENT_USER,
   SET_CURRENT_MANAGER,
   SET_CURRENT_ADMIN,
@@ -159,24 +158,6 @@ export const setCurrentAdmin = decoded => {
     type: SET_CURRENT_ADMIN,
     payload: decoded
   };
-};
-
-export const getUsers = () => dispatch => {
-  dispatch(setUsersLoading());
-  axios
-    .get('/api/users')
-    .then(res => {
-      dispatch({
-        type: GET_USERS,
-        payload: res.data
-      })
-    })
-    .catch(err => 
-      dispatch({
-        type: GET_ERRORS,
-        payload: null // should be `err.response.data` but it will have to be null for now
-      })
-    );
 };
 
 // Accounts loading

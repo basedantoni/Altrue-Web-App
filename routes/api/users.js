@@ -118,8 +118,6 @@ router.get('/', (req, res) => {
     .then(user => {
       return res.json(user)
     });
-
-  
 });
 
 // @route POST api/users
