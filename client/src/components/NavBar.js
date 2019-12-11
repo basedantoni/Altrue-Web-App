@@ -1,38 +1,96 @@
+import React, { Component } from 'react'
+import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+class NavBar extends Component {
+  render() {
 
-export default function NavBar() {
-  const classes = useStyles();
+    const useStyles = makeStyles(theme => ({
+      root: {
+        flexGrow: 1,
+      },
+      menuButton: {
+        marginRight: theme.spacing(2),
+      },
+      title: {
+        flexGrow: 1,
+      },
+    }));
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+    return (
+      <div>
+        <div class='Navbar' style={{backgroundColor : '#8b9bc7'}}>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton edge="start" aria-label="menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6">
+                Altrue
+              </Typography>
+              <Link to="/"
+                style={{
+                    width: "140px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    color: "white"
+                  }}>Landing Page</Link>
+              <Link to="/login"
+                style={{
+                    width: "140px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    color: "white"
+                  }}>Login</Link>
+              <Link to="/register"
+                style={{
+                    width: "140px",
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    color: "white"
+                  }}>Register</Link>
+              <Link
+                to="/registerManager"
+                style={{
+                  width: "200px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px",
+                  color: "white"
+                }}
+                >Register as Manager
+              </Link>
+              <Link
+                to="/loginManager"
+                style={{
+                  width: "200px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px",
+                  color: "white"
+                }}
+                >Manager Login
+              </Link>
+              <Link
+                to="/loginAdmin"
+                style={{
+                  width: "140px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px",
+                  color: "white"
+                }}
+                >Admin Login
+              </Link>
+            </Toolbar>
+          </AppBar>
+        </div>
+      </div>
+    )
+  }
 }
+
+export default NavBar

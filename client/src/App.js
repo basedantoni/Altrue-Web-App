@@ -20,6 +20,7 @@ import ManagerLogin from "./components/ManagerLogin";
 import ManagerDashboard from "./components/dashboard/ManagerDashboard";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/dashboard/AdminDashboard";
+import NavBar from "./components/NavBar";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -48,6 +49,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+            <NavBar/>
             <Route exact path="/" component={LandingPage}/>
             <Route exact path="/register" component={Register}/>
             <Route exact path="/login" component={Login}/>

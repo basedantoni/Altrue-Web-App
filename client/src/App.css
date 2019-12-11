@@ -1,3 +1,19 @@
+:root {
+    --main-bg-color: #fabd16;
+    --main-md-color: #ffe7a6;
+    --main-sm-color: #85640b;  
+    --secondary-bg-color: #e1e8ff;
+    --secondary-md-color: #8b9bc7;
+    --secondary-sm-color: #1a3045;
+    --neutral--bg-color: #272b2e;
+  
+}
+
 * {
     text-align: center;
+    color: #272b2e;
+}
+
+.NavBar {
+    background-color: var(--secondary-md-color);
 }
