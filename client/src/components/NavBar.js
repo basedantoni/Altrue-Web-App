@@ -34,13 +34,6 @@ class NavBar extends Component {
               <Typography variant="h6">
                 Altrue
               </Typography>
-              <Link to="/"
-                style={{
-                    width: "140px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    color: "white"
-                  }}>Landing Page</Link>
               <Link to="/login"
                 style={{
                     width: "140px",
