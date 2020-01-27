@@ -25,7 +25,7 @@ class Stats extends Component {
       userStats.totalDonations = statsObject.totalDonations
       userStats.volunteerHours = statsObject.volunteerHours
       userStats.eventsAttended = statsObject.eventsAttendance
-      if(statsObject.contributionRank == 0) {
+      if(statsObject.contributionRank === '0') {
         userStats.rank = 'Beginner'
       }
       //userStats.rank = statsObject.contributionRank
