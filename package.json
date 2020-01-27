@@ -2,9 +2,6 @@
   "name": "altrue",
   "version": "1.0.0",
   "description": "Altrue",
-  "engines": {
-    "node": "13.1.0"
-  },
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefx client",
