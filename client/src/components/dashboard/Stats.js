@@ -18,14 +18,17 @@ class Stats extends Component {
     let userStats = {
       totalDonations: 0,
       volunteerHours: 0,
-      eventsAttended: 2,
-      rank: null
+      eventsAttended: 0,
+      rank: 0
     }
     if(statsObject) {
       userStats.totalDonations = statsObject.totalDonations
       userStats.volunteerHours = statsObject.volunteerHours
       userStats.eventsAttended = statsObject.eventsAttendance
-      userStats.rank = statsObject.contributionRank
+      if(statsObject.contributionRank == 0) {
+        userStats.rank = 'Beginner'
+      }
+      //userStats.rank = statsObject.contributionRank
     }
 
 
