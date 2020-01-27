@@ -4,6 +4,7 @@ import {
   SET_CURRENT_MANAGER,
   SET_CURRENT_ADMIN,
   GET_USERS,
+  GET_USER_STATS,
 } from "../actions/types";
 
 const isEmpty = require("is-empty");
@@ -11,7 +12,8 @@ const isEmpty = require("is-empty");
 const initialState = {
   isAuthenticated: false,
   user: {},
-  loading: false
+  loading: false,
+  stats: []
 }
 
 export default function(state = initialState, action) {
@@ -44,6 +46,11 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         admin: action.payload
+      };
+    case GET_USER_STATS:
+      return {
+        ...state,
+        stats: action.payload
       }
     default:
       return state;

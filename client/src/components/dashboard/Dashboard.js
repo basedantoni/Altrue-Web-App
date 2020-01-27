@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PlaidLinkButton from "react-plaid-link-button";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, getUserStats } from "../../actions/authActions";
 import { getAccounts, addAccount } from "../../actions/plaidActions";
 
 import Accounts from "./Account";
@@ -36,7 +36,7 @@ class Dashboard extends Component {
       dashboardContent = <p className="center-align">Loading...</p>;
     } else if (accounts.length > 0) {
       // User has accounts linked
-      dashboardContent = <div><Accounts user={user} accounts={accounts} /><Stats/></div>;
+      dashboardContent = <div><Accounts user={user} accounts={accounts} /><Stats user={user} /></div>;
     } else {
       // User has no accounts linked
       dashboardContent = (
@@ -87,5 +87,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, getAccounts, addAccount }
+  { logoutUser, getAccounts, addAccount, getUserStats }
 )(Dashboard);
