@@ -65,7 +65,11 @@ class App extends Component {
             </Switch>
             <Route exact path="/link" component={Link} />
             <Route exact path="/create-events" component={CreateEvents}/>
+<<<<<<< HEAD
             <Route exact path="/events" component={Event}/>
+=======
+            <Route exact path="/events" component={Events}/>
+>>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
           </div>
         </Router>
       </Provider>
