@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class CreateEvents extends Component {
 
@@ -19,10 +17,6 @@ class CreateEvents extends Component {
     }
 
       componentDidMount() {
-        // If logged in and user navigates to Register page, should redirect them to dashboard
-        if (this.props.auth) {
-          this.props.history.push("/events");
-        }
       }
 
       componentWillReceiveProps(nextProps) {
@@ -78,8 +72,7 @@ class CreateEvents extends Component {
                 id="eventName"
                 type="text" 
                 value={eventName} 
-                onChange={this.onChange}
-                errors={errors.eventName}/>
+                onChange={this.onChange}/>
               </div>
               <div>
                 <label>Location: </label>
