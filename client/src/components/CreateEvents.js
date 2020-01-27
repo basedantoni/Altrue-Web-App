@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-<<<<<<< HEAD
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter, Redirect } from "react-router-dom";
-=======
-import { Link } from "react-router-dom";
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
 
 class CreateEvents extends Component {
 
@@ -21,12 +17,6 @@ class CreateEvents extends Component {
           //errors: {}
         };
     }
-<<<<<<< HEAD
-    
-      componentDidMount() {
-      }
-    
-=======
 
       componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
@@ -35,7 +25,6 @@ class CreateEvents extends Component {
         }
       }
 
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
       componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
           this.setState({
@@ -43,30 +32,18 @@ class CreateEvents extends Component {
           });
         }
       }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
       //Displays text from text field, changing everything in initial state
       onChange = (e) => {
         this.setState({
           [e.target.id]: e.target.value
         });
       }
-<<<<<<< HEAD
     
       //Submit button for register created
       onSubmit = (e) => {
         e.preventDefault();
     
-=======
-
-      //Submit button for register created
-      onSubmit = (e) => {
-        e.preventDefault();
-
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
         const newEvent = {
           eventName: this.state.eventName,
           location: this.state.location,
@@ -83,11 +60,7 @@ class CreateEvents extends Component {
     render() {
         // + toDashboard, errors 
         const { eventName, location, date, time, errors } = this.state
-<<<<<<< HEAD
     
-=======
-
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
         /*if (toDashboard === true) {
           return <Redirect to='/events' />
         }
@@ -105,12 +78,8 @@ class CreateEvents extends Component {
                 id="eventName"
                 type="text" 
                 value={eventName} 
-<<<<<<< HEAD
                 onChange={this.onChange}
                 errors={errors.eventName}/>
-=======
-                onChange={this.onChange}/>
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
               </div>
               <div>
                 <label>Location: </label>
@@ -118,12 +87,7 @@ class CreateEvents extends Component {
                 id="location"
                 type="text" 
                 value={location} 
-<<<<<<< HEAD
-                onChange={this.onChange}
-                errors={errors.location}/>
-=======
                 onChange={this.onChange}/>
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
               </div>
               <div>
                 <label>Date: </label>
@@ -131,12 +95,7 @@ class CreateEvents extends Component {
                 id="date" 
                 type="date" 
                 value={date}
-<<<<<<< HEAD
-                onChange={this.onChange}
-                errors={errors.date}/>
-=======
                 onChange={this.onChange}/>
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
               </div>
               <div>
                 <label>Time: </label>
@@ -144,12 +103,7 @@ class CreateEvents extends Component {
                 id="time"
                 type="time" 
                 value={time} 
-<<<<<<< HEAD
-                onChange={this.onChange}
-                errors={errors.time}/>
-=======
                 onChange={this.onChange}/>
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
               </div>
               <button type="submit">Create Event</button>
             </form>
@@ -174,9 +128,4 @@ class CreateEvents extends Component {
         { createEvent }
       )(withRouter(CreateEvents));
     */
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> af249a45e2d20637f2b1f9d0609b968b4425780a
 export default CreateEvents;
