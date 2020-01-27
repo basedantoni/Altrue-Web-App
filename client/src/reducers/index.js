@@ -10,5 +10,5 @@ export default combineReducers({
   errors: errorReducer,
   post: postReducer,
   plaid: accountReducer,
-  admin: adminReducer
+  admin: adminReducer,
 })
