@@ -6,7 +6,8 @@ import {
   SET_CURRENT_USER,
   SET_CURRENT_MANAGER,
   SET_CURRENT_ADMIN,
-  USER_LOADING
+  USER_LOADING,
+  GET_USER_STATS
 } from "./types"
 
 // Register User
@@ -151,6 +152,17 @@ export const loginAdmin = userData => dispatch => {
     );
     console.log("SUCCESS");
 };
+
+export const getUserStats = userId => dispatch => {
+  axios
+    .get(`/api/users/stats/${userId}`)
+    .then(res =>
+      dispatch({
+        type: GET_USER_STATS,
+        payload: res.data
+      }))
+    .catch(err => console.log(err));
+}
 
 // Set logged in user
 export const setCurrentAdmin = decoded => {

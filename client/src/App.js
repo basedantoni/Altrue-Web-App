@@ -64,7 +64,7 @@ class App extends Component {
               <PrivateRoute exact path="/adminDashboard" component={AdminDashboard}/>
             </Switch>
             <Route exact path="/link" component={Link} />
-            <Route exact path="create-events" component={CreateEvents}/>
+            <Route exact path="/create-events" component={CreateEvents}/>
             <Route exact path="/events" component={Event}/>
           </div>
         </Router>
