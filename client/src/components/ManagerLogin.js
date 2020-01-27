@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { loginManager } from "../actions/authActions";
 import { connect } from "react-redux";
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
+}));
 
 class ManagerLogin extends Component {
   constructor() {
@@ -55,7 +66,7 @@ class ManagerLogin extends Component {
     const { email, password, errors } = this.state;
     return (
       <div>
-        <h1>Login</h1>
+        <h1>Manager Login</h1>
         <Link 
         to="/">Home
         </Link>

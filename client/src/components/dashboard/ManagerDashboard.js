@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { Link } from "react-router-dom";
 
 class ManagerDashboard extends Component {
   componentDidMount() {
@@ -16,14 +17,44 @@ class ManagerDashboard extends Component {
   render() {
     return (
       <div>
-    <h1>Hello Manager!</h1>
-    <button
-      onClick={this.onLogoutClick}
-      className="btn btn-large waves-effect waves-light hoverable red accent-3 main-btn"
-    >
-    Logout
-    </button>
-    </div>
+        <h1>Hello Manager!</h1>
+        <div className="col s6">
+          <Link
+            to="/create-events"
+            style={{
+            width: "140px",
+            borderRadius: "3px",
+            letterSpacing: "1.5px"
+            }}
+            className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+            >Create Events
+          </Link>
+          <br/>
+          <br/>
+          <br/>
+        </div>
+        <div className="col s6">
+          <Link
+            to="/events"
+            style={{
+            width: "140px",
+            borderRadius: "3px",
+            letterSpacing: "1.5px"
+            }}
+            className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+            >Display Events
+          </Link>
+          <br/>
+          <br/>
+          <br/>
+        </div>
+        <button
+          onClick={this.onLogoutClick}
+          className="btn btn-large waves-effect waves-light hoverable red accent-3 main-btn"
+        >
+        Logout
+        </button>
+      </div>
     )
   }
 }
