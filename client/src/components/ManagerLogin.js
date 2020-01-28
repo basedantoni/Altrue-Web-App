@@ -70,10 +70,10 @@ class ManagerLogin extends Component {
         <Link 
         to="/">Home
         </Link>
-        <form noValidate onSubmit={this.onSubmit}>
+        <form className={useStyles.root} noValidate autoComplete="off" onSubmit={this.onSubmit}>
           <div>
-            <label>Email: </label>
-            <input
+            <TextField 
+            label="Email" 
             id="email"
             type="text"
             value={email}
@@ -81,8 +81,8 @@ class ManagerLogin extends Component {
             error={errors.email}/>
           </div>
           <div>
-            <label>Password: </label>
-            <input
+            <TextField
+            label="Password"
             id="password"
             type="password"
             value={password}
