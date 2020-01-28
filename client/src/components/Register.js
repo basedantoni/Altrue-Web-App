@@ -3,6 +3,17 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { registerUser } from "../actions/authActions";
 import { connect } from "react-redux";
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
+}));
 
 class Register extends Component {
   constructor() {
@@ -67,53 +78,53 @@ class Register extends Component {
         <Link 
         to="/">Home
         </Link>
-        <form noValidate onSubmit={this.onSubmit}>
-        <div>
-            <label>Name: </label>
-            <input 
+        <form className={useStyles.root} noValidate autoComplete="off" onSubmit={this.onSubmit}>
+          <div>
+            <TextField 
+            label="Name" 
             id="name"
-            type="text" 
-            value={name} 
+            type="text"
+            value={name}
             onChange={this.onChange}
-            errors={errors.name}/>
+            error={errors.email}/>
           </div>
           <div>
-            <label>Username: </label>
-            <input 
+            <TextField 
+            label="Username" 
             id="username"
-            type="text" 
-            value={username} 
+            type="text"
+            value={username}
             onChange={this.onChange}
-            errors={errors.username}/>
+            error={errors.email}/>
           </div>
           <div>
-            <label>Email: </label>
-            <input
-            id="email" 
-            type="email" 
+            <TextField 
+            label="Email" 
+            id="email"
+            type="text"
             value={email}
             onChange={this.onChange}
-            errors={errors.email}/>
+            error={errors.email}/>
           </div>
           <div>
-            <label>Password: </label>
-            <input 
+            <TextField
+            label="Password"
             id="password"
-            type="password" 
-            value={password} 
+            type="password"
+            value={password}
             onChange={this.onChange}
-            errors={errors.password}/>
+            error={errors.password}/>
           </div>
           <div>
-            <label>Confirm Password: </label>
-            <input 
+            <TextField
+            label="Confirm Password"
             id="password2"
-            type="password" 
-            value={password2} 
+            type="password"
+            value={password2}
             onChange={this.onChange}
-            errors={errors.password2}/>
+            error={errors.password}/>
           </div>
-          <button type="submit">Register</button>
+          <button type="submit">Login</button>
         </form>
       </div>
     )

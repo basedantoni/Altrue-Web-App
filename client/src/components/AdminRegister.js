@@ -3,6 +3,17 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { registerAdmin } from "../actions/authActions";
 import { connect } from "react-redux";
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
+}));
 
 class AdminRegister extends Component {
   constructor() {
@@ -66,6 +77,38 @@ class AdminRegister extends Component {
         <Link 
         to="/">Home
         </Link>
+        <form className={useStyles.root} noValidate autoComplete="off" onSubmit={this.onSubmit}>
+        <div>
+            <TextField 
+            label="Name" 
+            id="name"
+            type="text"
+            value={email}
+            onChange={this.onChange}
+            error={errors.email}/>
+          </div>
+          <div>
+            <TextField 
+            label="Email" 
+            id="email"
+            type="text"
+            value={email}
+            onChange={this.onChange}
+            error={errors.email}/>
+          </div>
+          <div>
+            <TextField
+            label="Password"
+            id="password"
+            type="password"
+            value={password}
+            onChange={this.onChange}
+            error={errors.password}/>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+
+        
         <form noValidate onSubmit={this.onSubmit}>
         <div>
             <label>Name: </label>
