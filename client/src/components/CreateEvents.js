@@ -11,7 +11,7 @@ class CreateEvents extends Component {
           location: "",
           date: "",
           time: "",
-          //toDashboard: false,
+          toDashboard: false,
           //errors: {}
         };
     }
