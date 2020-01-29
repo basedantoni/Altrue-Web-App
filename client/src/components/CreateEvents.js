@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class CreateEvents extends Component {
 
@@ -16,7 +16,7 @@ class CreateEvents extends Component {
         };
     }
 
-      componentDidMount() {
+      /*componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
         if (this.props.auth) {
           this.props.history.push("/events");
@@ -29,7 +29,7 @@ class CreateEvents extends Component {
             errors: nextProps.errors
           });
         }
-      }
+      }*/
 
       //Displays text from text field, changing everything in initial state
       onChange = (e) => {
@@ -50,19 +50,19 @@ class CreateEvents extends Component {
         }
 
         //this.props.registerUser(newUser, this.props.history); 
-        this.props.createEvent(newEvent, this.props.history); 
+ //       this.props.createEvent(newEvent, this.props.history); 
     };
 
 
 
     render() {
         // + toDashboard, errors 
-        const { eventName, location, date, time, errors } = this.state
+        const { eventName, location, date, time, toDashboard} = this.state
 
-        /*if (toDashboard === true) {
+        if (toDashboard === true) {
           return <Redirect to='/events' />
         }
-        */
+      
 
         return (
           <div>
@@ -102,8 +102,7 @@ class CreateEvents extends Component {
                 value={time} 
                 onChange={this.onChange}/>
               </div>
-              <button type="submit">Create Event</button>
-            </form>
+              <button type="submit">Create Event</button></form>
           </div>
         )
     }

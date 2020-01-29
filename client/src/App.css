@@ -3,7 +3,7 @@
     --main-md-color: #ffe7a6;
     --main-sm-color: #85640b;  
     --secondary-bg-color: #e1e8ff;
-    --secondary-md-color: #8b9bc7;
+    --secondary-md-color: #978344;
     --secondary-sm-color: #1a3045;
     --neutral--bg-color: #272b2e;
   
@@ -15,5 +15,5 @@
 }
 
 .NavBar {
-    background-color: var(--secondary-md-color);
+    background-color: #978344;
 }
