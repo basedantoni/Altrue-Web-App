@@ -25,7 +25,7 @@ class NavBar extends Component {
     return (
       <div>
         <div className='NavBar' style={{backgroundColor: '#978344'}}>
-          <AppBar position="static">
+          <AppBar position="static" style={{backgroundColor: '#978344'}}>
             <Toolbar>
               <IconButton edge="start" aria-label="menu">
                 <MenuIcon />
