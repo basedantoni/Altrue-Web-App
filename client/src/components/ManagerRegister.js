@@ -3,6 +3,17 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { registerManager } from "../actions/authActions";
 import { connect } from "react-redux";
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
+}));
 
 class ManagerRegister extends Component {
   constructor() {
@@ -55,7 +66,74 @@ class ManagerRegister extends Component {
         <Link 
         to="/">Home
         </Link>
-        <form noValidate onSubmit={this.onSubmit}>
+        <form className={useStyles.root} noValidate autoComplete="off" onSubmit={this.onSubmit}>
+          <div>
+            <TextField 
+            label="Name" 
+            id="name"
+            type="text"
+            value={name}
+            onChange={this.onChange}
+            error={errors.email}/>
+          </div>
+          <div>
+            <TextField 
+            label="Username" 
+            id="username"
+            type="text"
+            value={username}
+            onChange={this.onChange}
+            error={errors.email}/>
+          </div>
+          <div>
+            <TextField 
+            label="Email" 
+            id="email"
+            type="text"
+            value={email}
+            onChange={this.onChange}
+            error={errors.email}/>
+          </div>
+          <div>
+            <TextField 
+            label="Organization ID" 
+            id="orgId"
+            type="text"
+            value={orgId}
+            onChange={this.onChange}
+            error={errors.orgId}/>
+          </div>
+          <div>
+            <TextField 
+            label="Organization Name" 
+            id="orgName"
+            type="text"
+            value={orgName}
+            onChange={this.onChange}
+            error={errors.orgName}/>
+          </div>
+          <div>
+            <TextField
+            label="Password"
+            id="password"
+            type="password"
+            value={password}
+            onChange={this.onChange}
+            error={errors.password}/>
+          </div>
+          <div>
+            <TextField
+            label="Confirm Password"
+            id="password2"
+            type="password"
+            value={password2}
+            onChange={this.onChange}
+            error={errors.password}/>
+          </div>
+          <button type="submit">Register</button>
+        </form>
+        
+        {/* <form noValidate onSubmit={this.onSubmit}>
         <div>
             <label>Name: </label>
             <input 
@@ -120,7 +198,7 @@ class ManagerRegister extends Component {
             errors={errors.password2}/>
           </div>
           <button type="submit">Register</button>
-        </form>
+        </form> */}
       </div>
     )
   }
