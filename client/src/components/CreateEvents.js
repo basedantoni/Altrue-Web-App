@@ -1,10 +1,34 @@
+import 'date-fns';
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    margin: theme.spacing(1),
+    width: 200,
+  },
+}));
+
+// const handleDateChange = date => {
+//   setSelectedDate(date);
+// };
+
+//const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
 class CreateEvents extends Component {
-
     constructor() {
         super()
+
         //Updated from onChange changes
         this.state = {
           eventName: "",
@@ -12,16 +36,23 @@ class CreateEvents extends Component {
           date: "",
           time: "",
           toDashboard: false,
-          //errors: {}
+          date: new Date(),
+          errors: {}
         };
     }
-
       //Displays text from text field, changing everything in initial state
       onChange = (e) => {
         this.setState({
           [e.target.id]: e.target.value
         });
+        console.log(this.state)
       }
+
+      handleDateChange = date => {
+        this.setState({
+          date: date
+        })
+      };
 
       //Submit button for register created
       onSubmit = (e) => {
@@ -33,81 +64,76 @@ class CreateEvents extends Component {
           date: this.state.date,
           time: this.state.time,
         }
-
-        //this.props.registerUser(newUser, this.props.history); 
- //       this.props.createEvent(newEvent, this.props.history); 
     };
 
-
-
     render() {
-        // + toDashboard, errors 
-        const { eventName, location, date, time, toDashboard} = this.state
+        const { eventName, location, date, time, errors, toDashboard} = this.state
 
         if (toDashboard === true) {
           return <Redirect to='/events' />
         }
-      
 
         return (
           <div>
-            <Link 
-            to="/">Create an Event!
-            </Link>
-            <form noValidate onSubmit={this.onSubmit}>
-            <div>
-                <label>Event Name: </label>
-                <input 
+            <form className={useStyles.root} noValidate autoComplete="off" onSubmit={this.onSubmit}>
+              <div>
+                <TextField 
+                label="Event Name" 
                 id="eventName"
-                type="text" 
-                value={eventName} 
-                onChange={this.onChange}/>
+                type="text"
+                value={eventName}
+                onChange={this.onChange}
+                error={errors.eventName}/>
               </div>
               <div>
-                <label>Location: </label>
-                <input 
+                <TextField 
+                label="Location" 
                 id="location"
-                type="text" 
-                value={location} 
-                onChange={this.onChange}/>
+                type="text"
+                value={location}
+                onChange={this.onChange}
+                error={errors.location}/>
               </div>
               <div>
-                <label>Date: </label>
-                <input
-                id="date" 
-                type="date" 
-                value={date}
-                onChange={this.onChange}/>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid container justify="space-around">
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      format="MM/dd/yyyy"
+                      margin="normal"
+                      id="date"
+                      label="Date"
+                      value={date}
+                      onChange={this.handleDateChange}
+                      error={errors.date}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                    />
+                    <KeyboardTimePicker
+                      margin="normal"
+                      id="time"
+                      label="Time"
+                      value={date}
+                      onChange={this.handleDateChange}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change time',
+                      }}
+                    />
+                  </Grid>
+                </MuiPickersUtilsProvider>
               </div>
-              <div>
-                <label>Time: </label>
-                <input 
-                id="time"
-                type="time" 
-                value={time} 
-                onChange={this.onChange}/>
-              </div>
-              <button type="submit">Create Event</button></form>
+              <Button variant="contained" type="submit">Create Event</Button>
+            </form>
+
+            <Link
+            to="/events">
+              <Button variant="contained" color="primary">Display Events</Button>
+            </Link>
           </div>
         )
     }
 }
-    /*
-    CreateEvents.propTypes = {
-        createEvent: PropTypes.func.isRequired,
-        auth: PropTypes.object.isRequired,
-        //errors: PropTypes.object.isRequired
-      }
-      
-      const mapStateToProps = state => ({
-        auth: state.auth,
-        errors: state.errors
-      });
-      
-      export default connect(
-        mapStateToProps,
-        { createEvent }
-      )(withRouter(CreateEvents));
-    */
 
 export default CreateEvents;
