@@ -16,21 +16,6 @@ class CreateEvents extends Component {
         };
     }
 
-      /*componentDidMount() {
-        // If logged in and user navigates to Register page, should redirect them to dashboard
-        if (this.props.auth) {
-          this.props.history.push("/events");
-        }
-      }
-
-      componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-          this.setState({
-            errors: nextProps.errors
-          });
-        }
-      }*/
-
       //Displays text from text field, changing everything in initial state
       onChange = (e) => {
         this.setState({
