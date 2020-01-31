@@ -32,7 +32,7 @@ class NavBar extends Component {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6">
-                Altrue
+                <Link to="/"><b>Altrue</b></Link>
               </Typography>
               <Link to="/login"
                 style={{

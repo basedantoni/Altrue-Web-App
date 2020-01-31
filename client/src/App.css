@@ -2,7 +2,7 @@
     --main-bg-color: #fabd16;
     --main-md-color: #ffe7a6;
     --main-sm-color: #85640b;  
-    --secondary-bg-color: #e1e8ff;
+    --secondary-bg-color: #ffffff;
     --secondary-md-color: #978344;
     --secondary-sm-color: #1a3045;
     --neutral--bg-color: #272b2e;
@@ -16,4 +16,41 @@
 
 .NavBar {
     background-color: #978344;
+    text-emphasis-color: #fff;
+}
+
+.col-md-8,
+.col-md-4 {
+/*
+margin: auto;
+justify-content: center;
+align-items: center;
+vertical-align: middle;
+width: 50%;
+height: 30%;
+padding-top: 30px;
+background-color: #fff;
+border: 1px solid #fff;
+box-shadow: 5px 10px rgba(0,0,0,.05);
+border-radius: 25px;
+color: #fff;
+*/
+
+  width: 900px;
+  background: #fff;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 40px;
+  box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  -o-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  -ms-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -o-border-radius: 20px;
+  -ms-border-radius: 20px; 
+
+  
 }
