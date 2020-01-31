@@ -1,57 +1,37 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import React, { Component } from "react";
+import MaterialTable from "material-table"; // https://mbrn.github.io/material-table/#/
 
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 650,
-  },
-});
+class Events extends Component {
+  componentDidMount() {
 
-function createData(eventName, location, date, time) {
-  return { eventName, location, date, time };
+  }
+
+  //Display events
+  render() {
+
+    // Setting up data table
+    const eventColumns = [
+      { title: "Event Name", field: "event" },
+      { title: "Date", field: "date", type: "date", defaultSort: "desc" },
+      { title: "Location", field: "location" },
+      { title: "Time", field: "time" },
+      { title: "Organization", field: "organization" }
+    ];
+
+    let eventData = [];
+
+    return (
+      <div>
+        <div style={{ maxWidth: '80%', margin: '30px auto' }}>
+          <MaterialTable
+          columns={eventColumns}
+          data={eventData}
+          title="Events"
+          />
+        </div>
+      </div>
+    )
+  }
 }
 
-const rows = [
-  createData('Climate March', 'Texas Capitol, Austin, TX', 'March 1st 2020', '10:00AM'),
-];
-
-export default function SimpleTable() {
-  const classes = useStyles();
-
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell><b>Event Name</b></TableCell>
-            <TableCell align="right"><b>Location</b></TableCell>
-            <TableCell align="right"><b>Date</b></TableCell>
-            <TableCell align="right"><b>Time</b></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.eventName}
-              </TableCell>
-              <TableCell align="right">{row.location}</TableCell>
-              <TableCell align="right">{row.date}</TableCell>
-              <TableCell align="right">{row.time}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
-}
+export default Events;

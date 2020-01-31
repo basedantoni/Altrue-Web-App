@@ -6,15 +6,17 @@ const EventSchema = new Schema ({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  accessToken: {
+  name: {
     type: String,
     required: true
   },
-  eventId: {
-    type: String,
-    required: true
+  date: {
+    type: Date
   },
-  eventName: {
+  location: {
+    type: String
+  },
+  organization: {
     type: String
   }
 })

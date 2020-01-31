@@ -26,11 +26,6 @@ const ManagerSchema = new Schema({
     type: String,
     required: true
   },
-  event: {
-    name: String,
-    location: String,
-    date: Date,
-  },
   date: {
     type: Date,
     default: Date.now()

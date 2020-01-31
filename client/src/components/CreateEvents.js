@@ -1,6 +1,5 @@
 import 'date-fns';
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +12,7 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { createEvent } from "../actions/eventActions"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +30,7 @@ class CreateEvents extends Component {
         userId: "",
         eventName: "",
         location: "",
+        organization: "",
         toDashboard: false,
         date: new Date(),
         errors: {}
@@ -40,7 +41,6 @@ class CreateEvents extends Component {
     this.setState({
       [e.target.id]: e.target.value
     });
-    console.log(this.state)
   }
   handleDateChange = date => {
     this.setState({
@@ -55,17 +55,17 @@ class CreateEvents extends Component {
     const newEvent = {
       eventName: this.state.eventName,
       location: this.state.location,
-      date: this.state.date
+      date: this.state.date,
+      organization: this.state.organization
     }
+
+    console.log(newEvent)
+
+    this.props.createEvent(newEvent);
   };
 
   render() {
-    console.log(this.props.auth.user.id)
-    const { eventName, location, date, time, errors, toDashboard} = this.state
-
-    if (toDashboard === true) {
-      return <Redirect to='/events' />
-    }
+    const {eventName, location, date, errors} = this.state
 
     return (
       <div>
@@ -120,11 +120,6 @@ class CreateEvents extends Component {
           </div>
           <Button variant="contained" type="submit">Create Event</Button>
         </form>
-
-        <Link
-        to="/events">
-          <Button variant="contained" color="primary">Display Events</Button>
-        </Link>
       </div>
     )
   }
@@ -140,5 +135,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { }
+  { createEvent }
 )(CreateEvents);

@@ -9,6 +9,7 @@ const users = require('./routes/api/users');
 const plaid = require('./routes/api/plaid');
 const manager = require('./routes/api/manager');
 const admin = require('./routes/api/admin');
+const event = require('./routes/api/event')
 
 const app = express();
 
@@ -43,10 +44,12 @@ app.use(function(req, res, next) {
 });
 
 // Use Routes
+app.use('/api/event', event);
 app.use('/api/users', users);
 app.use('/api/manager', manager);
 app.use('/api/plaid', plaid);
 app.use('/api/admin', admin);
+
 
 // Serve static assets if in production
 if(process.env.NODE_ENV === 'production') {

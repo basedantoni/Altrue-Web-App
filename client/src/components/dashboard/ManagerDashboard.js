@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import { Link } from "react-router-dom";
 import CreateEvents from "../CreateEvents";
 import Events from "../Events";
+import Button from '@material-ui/core/Button';
 
 class ManagerDashboard extends Component {
   componentDidMount() {
-    console.log(this.props.auth.user)
+
   }
 
   onLogoutClick = e => {
@@ -17,15 +17,15 @@ class ManagerDashboard extends Component {
   }
 
   render() {
+
     return (
       <div>
-        <h1>Hello Manager!</h1>
-        <button
+        <Button
           onClick={this.onLogoutClick}
           className="btn btn-large waves-effect waves-light hoverable red accent-3 main-btn"
         >
         Logout
-        </button>
+        </Button>
 
         <CreateEvents></CreateEvents>
         <Events></Events>

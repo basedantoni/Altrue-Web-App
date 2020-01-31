@@ -4,6 +4,7 @@ import errorReducer from "./errorReducers";
 import postReducer from "./postReducer.js";
 import accountReducer from "./accountReducers.js";
 import adminReducer from "./adminReducer.js";
+import eventReducer from "./eventReducer.js";
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   post: postReducer,
   plaid: accountReducer,
   admin: adminReducer,
+  event: eventReducer
 })
