@@ -28,7 +28,6 @@ class Stats extends Component {
       if(statsObject.contributionRank === '0') {
         userStats.rank = 'Beginner'
       }
-      //userStats.rank = statsObject.contributionRank
     }
 
 

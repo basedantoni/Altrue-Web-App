@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 class ManagerRegister extends Component {
   constructor() {
     super()
-
+    
     this.state = {
       name: "",
       username: "",
