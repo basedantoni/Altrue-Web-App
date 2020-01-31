@@ -1,5 +1,17 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { TextField } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
+}));
+
 
 class CreateEvents extends Component {
 
@@ -49,8 +61,7 @@ class CreateEvents extends Component {
           time: this.state.time,
         }
 
-        //this.props.registerUser(newUser, this.props.history); 
- //       this.props.createEvent(newEvent, this.props.history); 
+        this.props.createEvent(newEvent, this.props.history); 
     };
 
 
@@ -60,48 +71,50 @@ class CreateEvents extends Component {
         const { eventName, location, date, time, toDashboard} = this.state
 
         if (toDashboard === true) {
-          return <Redirect to='/events' />
+          return <Redirect to='/display-events' />
         }
       
 
         return (
           <div>
             <Link 
-            to="/">Create an Event!
+            to="/managerDashboard">Back to Manager Dashboard
             </Link>
-            <form noValidate onSubmit={this.onSubmit}>
+            <form className={useStyles.root} noValidate autoComplete="off" onSubmit={this.onSubmit}>
             <div>
-                <label>Event Name: </label>
-                <input 
-                id="eventName"
-                type="text" 
-                value={eventName} 
-                onChange={this.onChange}/>
+              <TextField
+              label="Event Name"
+              id="eventName"
+              type="text"
+              value={eventName}
+              onChange={this.onChange}/>
               </div>
               <div>
-                <label>Location: </label>
-                <input 
+                <TextField
+                label="Location"
                 id="location"
                 type="text" 
                 value={location} 
                 onChange={this.onChange}/>
               </div>
               <div>
-                <label>Date: </label>
-                <input
+                <TextField
+                label="Date "
                 id="date" 
                 type="date" 
                 value={date}
                 onChange={this.onChange}/>
               </div>
               <div>
-                <label>Time: </label>
-                <input 
+                <TextField
+                label="Time"
                 id="time"
                 type="time" 
                 value={time} 
                 onChange={this.onChange}/>
               </div>
+              <br/>
+              <br/>
               <button type="submit">Create Event</button></form>
           </div>
         )
@@ -123,6 +136,6 @@ class CreateEvents extends Component {
         mapStateToProps,
         { createEvent }
       )(withRouter(CreateEvents));
-    */
+      */
 
-export default CreateEvents;
+      export default CreateEvents;

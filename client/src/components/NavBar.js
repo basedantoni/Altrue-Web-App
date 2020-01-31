@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+
 class NavBar extends Component {
   render() {
 
@@ -24,8 +25,8 @@ class NavBar extends Component {
 
     return (
       <div>
-        <div className='NavBar' style={{backgroundColor: '#978344'}}>
-          <AppBar position="static">
+        <div className='NavBar' style={{backgroundColor:"#978344"}}>
+          <AppBar position="static" style={{backgroundColor:"#978344"}}>
             <Toolbar>
               <IconButton edge="start" aria-label="menu">
                 <MenuIcon />
@@ -38,14 +39,16 @@ class NavBar extends Component {
                     width: "140px",
                     borderRadius: "3px",
                     letterSpacing: "1.5px",
-                    color: "white"
+                    color: "white",
+                    backgroundColor: "#978344"
                   }}>Login</Link>
               <Link to="/register"
                 style={{
                     width: "140px",
                     borderRadius: "3px",
                     letterSpacing: "1.5px",
-                    color: "white"
+                    color: "white",
+                    backgroundColor: "#978344"
                   }}>Register</Link>
               <Link
                 to="/registerManager"
@@ -53,7 +56,8 @@ class NavBar extends Component {
                   width: "200px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
-                  color: "white"
+                  color: "white",
+                  backgroundColor: "#978344"
                 }}
                 >Register as Manager
               </Link>
@@ -63,7 +67,8 @@ class NavBar extends Component {
                   width: "200px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
-                  color: "white"
+                  color: "white",
+                  backgroundColor: "#978344"
                 }}
                 >Manager Login
               </Link>
@@ -73,7 +78,8 @@ class NavBar extends Component {
                   width: "140px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
-                  color: "white"
+                  color: "white",
+                  backgroundColor: "#978344"
                 }}
                 >Admin Login
               </Link>

@@ -22,7 +22,7 @@ import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/dashboard/AdminDashboard";
 import NavBar from "./components/NavBar";
 import CreateEvents from "./components/CreateEvents";
-import Events from "./components/Events";
+import DisplayEvents from "./components/DisplayEvents";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -65,7 +65,7 @@ class App extends Component {
             </Switch>
             <Route exact path="/link" component={Link} />
             <Route exact path="/create-events" component={CreateEvents}/>
-            <Route exact path="/events" component={Events}/>
+            <Route exact path="/display-events" component={DisplayEvents}/>
           </div>
         </Router>
       </Provider>
