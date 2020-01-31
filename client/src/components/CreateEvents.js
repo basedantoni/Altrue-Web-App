@@ -48,9 +48,8 @@ class CreateEvents extends Component {
     })
   };
 
-  //Submit button for register created
+  //Submit button for event created
   onSubmit = (e) => {
-    e.preventDefault();
 
     const newEvent = {
       eventName: this.state.eventName,
@@ -58,8 +57,6 @@ class CreateEvents extends Component {
       date: this.state.date,
       organization: this.state.organization
     }
-
-    console.log(newEvent)
 
     this.props.createEvent(newEvent);
   };
@@ -126,11 +123,13 @@ class CreateEvents extends Component {
 }
 
 CreateEvents.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  events: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  events: state.events
 });
 
 export default connect(

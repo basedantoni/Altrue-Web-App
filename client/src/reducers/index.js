@@ -12,5 +12,5 @@ export default combineReducers({
   post: postReducer,
   plaid: accountReducer,
   admin: adminReducer,
-  event: eventReducer
+  events: eventReducer
 })

@@ -24,9 +24,20 @@ router.post('/createEvent', (req, res) => {
 // @desc Get all events
 // @access Public
 router.get('/', (req, res) => {
+    let eventList = []
     Event.find()
       .sort({date: -1})
-      .then(events => res.json(events));
+      .then(events => {
+          events.forEach(element => {
+            eventList.push({
+                eventName: element.name,
+                date: element.date,
+                location: element.location,
+                organization: element.organization
+            })
+          });
+          return res.json(eventList)
+      });
   });
 
 module.exports = router;
