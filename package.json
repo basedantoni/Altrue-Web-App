@@ -38,6 +38,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "plaid": "^4.4.0",
+    "react-calendar": "^2.19.2",
     "react-scripts": "^3.3.0",
     "validator": "^11.1.0"
   },

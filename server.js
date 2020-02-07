@@ -14,10 +14,12 @@ const event = require('./routes/api/event')
 const app = express();
 
 // Bodyparser middleware
-app.use(bodyParser.urlencoded({
-  extended: true
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
+app.use(express.json({
+  extended: false
 }));
-app.use(bodyParser.json());
 app.use(cors());
 
 // DB Config
