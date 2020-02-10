@@ -2,37 +2,45 @@ import React, { Component } from 'react'
 import { Calendar } from 'react-calendar'
 import MaterialTable from "material-table"; // https://mbrn.github.io/material-table/#/
 import { getCalendarEvents } from "../actions/eventActions";
+import { connect } from "react-redux";
 
 class AltrueCalendar extends Component {
-
-  state = {
-    date: getCalendarEvents(new Date()),
+  componentDidMount() {
+    this.props.getCalendarEvents(new Date());
   }
 
   onChange = date => {
-    this.setState({ date })
-    getCalendarEvents(date);
+    this.props.getCalendarEvents(date);
   }
 
   render() {
-    console.log(this.state)
+    const { calendarEvents } = this.props.events
 
     const eventColumns = [
-      { title: "Event Name", field: "event" },
+      { title: "Event Name", field: "name" },
       { title: "Date", field: "date", type: "date", defaultSort: "desc" },
       { title: "Location", field: "location" },
-      { title: "Time", field: "time" },
-      //{ title: "Organization", field: "organization" }
     ];
+
+    let calendarData = []
+
+    for(const entry in calendarEvents) {
+      calendarData.push({
+        event: calendarEvents[entry].name,
+        date: calendarEvents[entry].date,
+        location: calendarEvents[entry].location,
+      })
+    }
 
     return (
       <div style={{ maxWidth: '80%', margin: '30px auto' }}>
         <Calendar
           onChange={this.onChange}
-          value={this.state.date}
+          value={new Date()}
         />
         <MaterialTable
           title="Events"
+          data={calendarEvents}
           columns={eventColumns}
         />
       </div>
@@ -41,4 +49,8 @@ class AltrueCalendar extends Component {
 
 }
 
-export default AltrueCalendar;
+const mapStateToProps = state => ({
+  events: state.events
+});
+
+export default connect(mapStateToProps, { getCalendarEvents })(AltrueCalendar);

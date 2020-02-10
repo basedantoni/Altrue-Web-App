@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_EVENTS, GET_ERRORS } from "./types";
+import { GET_EVENTS, GET_ERRORS, GET_CALENDAR_EVENT } from "./types";
 
 // Create Event
 export const createEvent = (eventData) => dispatch => {
@@ -27,9 +27,14 @@ export const getEvents = () => dispatch => {
 }
 
 // Get Events by Date
-export const getCalendarEvents = (date) => {
+export const getCalendarEvents = (date) => dispatch => {
   axios
     .get(`api/event/calendarEvents/${date}`)
-    .then(res => console.log(res))
+    .then(res => {
+      dispatch({
+        type: GET_CALENDAR_EVENT,
+        payload: res.data
+      })
+    })
     .catch(err => console.log(err))
 }

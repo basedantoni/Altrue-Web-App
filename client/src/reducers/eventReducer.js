@@ -1,8 +1,9 @@
-import { GET_EVENTS, CREATE_EVENT } from "../actions/types";
+import { GET_EVENTS, CREATE_EVENT, GET_CALENDAR_EVENT } from "../actions/types";
 
 const initialState = {
     event: [],
-    events: {}
+    events: {},
+    calendarEvents: []
 }
 
 export default function(state = initialState, actions) {
@@ -17,6 +18,11 @@ export default function(state = initialState, actions) {
           ...state,
           event: actions.payload
         };
+      case GET_CALENDAR_EVENT:
+        return {
+          ...state,
+          calendarEvents: actions.payload
+        }
       default:
         return state;
     }
