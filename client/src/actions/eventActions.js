@@ -25,3 +25,11 @@ export const getEvents = () => dispatch => {
       }))
     .catch(err => console.log(err))
 }
+
+// Get Events by Date
+export const getCalendarEvents = (date) => {
+  axios
+    .get(`api/event/calendarEvents/${date}`)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}

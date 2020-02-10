@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PlaidLinkButton from "react-plaid-link-button";
+import AltrueCalendar from "../AltrueCalendar"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, getUserStats } from "../../actions/authActions";
@@ -36,7 +37,7 @@ class Dashboard extends Component {
       dashboardContent = <p className="center-align">Loading...</p>;
     } else if (accounts.length > 0) {
       // User has accounts linked
-      dashboardContent = <div><Accounts user={user} accounts={accounts} /><Stats user={user} /></div>;
+      dashboardContent = <div><Accounts user={user} accounts={accounts} /><Stats user={user} /> <AltrueCalendar/></div>;
     } else {
       // User has no accounts linked
       dashboardContent = (

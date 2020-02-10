@@ -40,4 +40,23 @@ router.get('/', (req, res) => {
       });
   });
 
+router.get("/calendarEvents/:date", (req, res) => {
+  // Converts default Javascript date to ISO
+  const date = new Date(req.params.date)
+
+  // Increments date with object Date.setDate && Date.getDate
+  let nextDay = new Date(req.params.date)
+  nextDay.setDate(date.getDate() + 1)
+
+  Event.find({ 
+    date: {
+      $gte: date,
+      $lte: nextDay
+    }
+  })
+  .then(events => {
+    return res.json(events)
+  })
+})
+
 module.exports = router;
