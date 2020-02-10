@@ -55,9 +55,9 @@ class AdminDashboard extends Component {
                 onClick: (e, userColumns) => {
                   const confirm = window.confirm('You want to delete '+ userColumns.name +'?')
                   if(confirm) {
-                    this.props.deleteUser(userColumns.userId)
-                    this.props.getUsers();                    
+                    this.props.deleteUser(userColumns.userId)               
                   }
+                  this.props.getUsers();
                 }
               }
             ]}
